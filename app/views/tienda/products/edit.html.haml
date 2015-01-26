@@ -1,0 +1,8 @@
+- @page_title = t('tienda.products.products')
+= content_for :header do
+  %p.buttons
+    = link_to t('tienda.products.variants') , [@product, :variants], :class => 'button'
+    = link_to t('tienda.products.stock_levels') , stock_level_adjustments_path(:item_id => @product.id, :item_type => @product.class), :class => 'button', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'}
+    = link_to t('tienda.products.back_to_products') , :products, :class => 'button'
+  %h2.products= t('tienda.products.products')
+= render 'form'

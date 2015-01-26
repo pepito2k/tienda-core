@@ -1,4 +1,4 @@
-module Shoppe
+module Tienda
   FactoryGirl.define do
     
     factory :delivery_price, :class => DeliveryServicePrice do

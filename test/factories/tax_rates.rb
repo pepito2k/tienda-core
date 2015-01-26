@@ -1,4 +1,4 @@
-module Shoppe
+module Tienda
   FactoryGirl.define do
     
     factory :standard_tax, :class => TaxRate do

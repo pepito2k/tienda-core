@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %title #{@page_title} - Tienda
+    = stylesheet_link_tag 'tienda/application'
+    = javascript_include_tag 'tienda/application'
+    = csrf_meta_tags
+    :javascript
+      window.Tienda = {}
+      window.Tienda.currencyUnit = "#{h Tienda.settings.currency_unit}";
+  %body
+    %nav.sidebar
+      %header.logo
+        %h1= link_to "Tienda", root_path
+        %p v#{Tienda::VERSION}
+      %p.logged= t('.logged_in_as', user_name: current_user.full_name)
+
+      %ul
+        - for item in Tienda::NavigationManager.find(:admin_primary).items
+          %li= navigation_manager_link item
+
+        %li= link_to t('.logout'), [:logout], :method => :delete
+
+    %header.main
+      = yield :header
+
+    #content
+      = display_flash
+      %section.main
+        = yield
+
+    %footer
+      %p.store= link_to "&larr; #{t('.goto')} #{Tienda.settings.store_name}".html_safe, '/'
+

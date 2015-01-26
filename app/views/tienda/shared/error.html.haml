@@ -1,0 +1,6 @@
+- @page_title = t('tienda.shared.error')
+= display_flash
+.error
+  %h2= t('tienda.shared.error_occured')
+  %p.message= @exception.message
+  %p.back= link_to "&larr;#{t('tienda.shared.back_to_tienda')}".html_safe, root_path, :class => 'button'

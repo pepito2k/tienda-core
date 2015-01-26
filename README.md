@@ -1,16 +1,12 @@
-# Shoppe
+# Tienda
 
-Shoppe is an Rails-based e-commerce platform which allows you to easily introduce a
-catalogue-based store into your Rails 4 applications. 
+Tienda is an Rails-based e-commerce platform which allows you to easily
+introduce a catalogue-based store into your Rails 4 applications.
 
-![GemVersion](https://badge.fury.io/rb/shoppe.png)
-[![Code Climate](https://codeclimate.com/github/tryshoppe/core/badges/gpa.svg)](https://codeclimate.com/github/tryshoppe/core)
+![GemVersion](https://badge.fury.io/rb/tienda.png)
+[![Code Climate](https://codeclimate.com/github/pepito2k/tienda-core/badges/gpa.svg)](https://codeclimate.com/github/pepito2k/tienda-core)
 
-* [Check out the website](http://tryshoppe.com)
-* [View the demo site](http://demo.tryshoppe.com)
-* [Check out the demo site source](http://github.com/tryshoppe/example-store)
-* [Read the release notes](https://github.com/tryshoppe/core/blob/master/CHANGELOG.md)
-* [Read API documentation](http://api.tryshoppe.com)
+* [Read the release notes](https://github.com/pepito2k/tienda-core/blob/master/CHANGELOG.md)
 
 ## Features
 
@@ -23,32 +19,32 @@ catalogue-based store into your Rails 4 applications.
 
 ## Getting Started
 
-Shoppe provides the core framework for the store and you're responsible for creating
-the storefront which your customers will use to purchase products. In addition to
-creating the UI for the frontend, you are also responsible for integrating with whatever
-payment gateway takes your fancy.
+Tienda provides the core framework for the store and you're responsible for
+creating the storefront which your customers will use to purchase products. In
+addition to creating the UI for the frontend, you are also responsible for
+integrating with whatever payment gateway takes your fancy.
 
 ### Installing into a new Rails application
 
-To get up and running with Shoppe in a new Rails application is simple. Just follow the
-instructions below and you'll be up and running in minutes.
+To get up and running with Tienda in a new Rails application is simple. Just
+follow the instructions below and you'll be up and running in minutes.
 
     rails new my_store
     cd my_store
-    echo "gem 'shoppe', '~> 1.0'" >> Gemfile
+    echo "gem 'tienda', '~> 1.0'" >> Gemfile
     bundle
-    rails generate shoppe:setup
+    rails generate tienda:setup
     rails generate nifty:attachments:migration
     rails generate nifty:key_value_store:migration
-    rake db:migrate shoppe:setup
+    rake db:migrate tienda:setup
     rails server
 
 ## Contribution
 
-If you'd like to help with this project, please get in touch with me. The best place is on
-Twitter (@adamcooke) or by e-mail to adam@atechmedia.com.
+If you'd like to help with this project, please get in touch with me. The best
+place is on Twitter (@gonzalorobaina) or by e-mail to gonzalo@robaina.me.
 
 ## License
 
-Shoppe is licenced under the MIT license. Full details can be found in the MIT-LICENSE
-file in the root of the repository.
+Tienda is licenced under the MIT license. Full details can be found in the
+MIT-LICENSE file in the root of the repository.

@@ -1,20 +1,20 @@
-# Shoppe Configuration File
+# Tienda Configuration File
 # !! Be sure to restart your server after making any changes to this file.
 
-# The name of your Shoppe store.
-store_name: Ye Old Widget Shoppe
+# The name of your Tienda store.
+store_name: Ye Old Widget Tienda
 
-# The e-mail address used to send all ourbound messages through Shoppe.
+# The e-mail address used to send all ourbound messages through Tienda.
 email_address: sales@example.com
 
 # The currency unit which should be shown before all currency values
-# within the Shoppe interface.
+# within the Tienda interface.
 currency_unit: '&pound;'
 
-# The name of "tax" which you would like displayed within the Shoppe
+# The name of "tax" which you would like displayed within the Tienda
 # interface.
 tax_name: VAT
 
-# If enabled, Shoppe will behave in demo mode. This removes the requirement
-# to login to the Shoppe interface and disabled editting of users. 
+# If enabled, Tienda will behave in demo mode. This removes the requirement
+# to login to the Tienda interface and disabled editting of users. 
 demo_mode: false

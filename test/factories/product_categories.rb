@@ -1,4 +1,4 @@
-module Shoppe
+module Tienda
   FactoryGirl.define do
 
     factory :phones_category, :class => ProductCategory do

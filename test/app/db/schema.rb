@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.string  "value"
   end
 
-  create_table "shoppe_countries", force: true do |t|
+  create_table "tienda_countries", force: true do |t|
     t.string  "name"
     t.string  "code2"
     t.string  "code3"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.boolean "eu_member", default: false
   end
 
-  create_table "shoppe_delivery_service_prices", force: true do |t|
+  create_table "tienda_delivery_service_prices", force: true do |t|
     t.integer  "delivery_service_id"
     t.string   "code"
     t.decimal  "price",               precision: 8, scale: 2
@@ -57,12 +57,12 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.text     "country_ids"
   end
 
-  add_index "shoppe_delivery_service_prices", ["delivery_service_id"], name: "index_shoppe_delivery_service_prices_on_delivery_service_id", using: :btree
-  add_index "shoppe_delivery_service_prices", ["max_weight"], name: "index_shoppe_delivery_service_prices_on_max_weight", using: :btree
-  add_index "shoppe_delivery_service_prices", ["min_weight"], name: "index_shoppe_delivery_service_prices_on_min_weight", using: :btree
-  add_index "shoppe_delivery_service_prices", ["price"], name: "index_shoppe_delivery_service_prices_on_price", using: :btree
+  add_index "tienda_delivery_service_prices", ["delivery_service_id"], name: "index_tienda_delivery_service_prices_on_delivery_service_id", using: :btree
+  add_index "tienda_delivery_service_prices", ["max_weight"], name: "index_tienda_delivery_service_prices_on_max_weight", using: :btree
+  add_index "tienda_delivery_service_prices", ["min_weight"], name: "index_tienda_delivery_service_prices_on_min_weight", using: :btree
+  add_index "tienda_delivery_service_prices", ["price"], name: "index_tienda_delivery_service_prices_on_price", using: :btree
 
-  create_table "shoppe_delivery_services", force: true do |t|
+  create_table "tienda_delivery_services", force: true do |t|
     t.string   "name"
     t.string   "code"
     t.boolean  "default",      default: false
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.string   "tracking_url"
   end
 
-  add_index "shoppe_delivery_services", ["active"], name: "index_shoppe_delivery_services_on_active", using: :btree
+  add_index "tienda_delivery_services", ["active"], name: "index_tienda_delivery_services_on_active", using: :btree
 
-  create_table "shoppe_order_items", force: true do |t|
+  create_table "tienda_order_items", force: true do |t|
     t.integer  "order_id"
     t.integer  "ordered_item_id"
     t.string   "ordered_item_type"
@@ -89,10 +89,10 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.datetime "updated_at"
   end
 
-  add_index "shoppe_order_items", ["order_id"], name: "index_shoppe_order_items_on_order_id", using: :btree
-  add_index "shoppe_order_items", ["ordered_item_id", "ordered_item_type"], name: "index_shoppe_order_items_ordered_item", using: :btree
+  add_index "tienda_order_items", ["order_id"], name: "index_tienda_order_items_on_order_id", using: :btree
+  add_index "tienda_order_items", ["ordered_item_id", "ordered_item_type"], name: "index_tienda_order_items_ordered_item", using: :btree
 
-  create_table "shoppe_orders", force: true do |t|
+  create_table "tienda_orders", force: true do |t|
     t.string   "token"
     t.string   "first_name"
     t.string   "last_name"
@@ -136,11 +136,11 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.string   "invoice_number"
   end
 
-  add_index "shoppe_orders", ["delivery_service_id"], name: "index_shoppe_orders_on_delivery_service_id", using: :btree
-  add_index "shoppe_orders", ["received_at"], name: "index_shoppe_orders_on_received_at", using: :btree
-  add_index "shoppe_orders", ["token"], name: "index_shoppe_orders_on_token", using: :btree
+  add_index "tienda_orders", ["delivery_service_id"], name: "index_tienda_orders_on_delivery_service_id", using: :btree
+  add_index "tienda_orders", ["received_at"], name: "index_tienda_orders_on_received_at", using: :btree
+  add_index "tienda_orders", ["token"], name: "index_tienda_orders_on_token", using: :btree
 
-  create_table "shoppe_payments", force: true do |t|
+  create_table "tienda_payments", force: true do |t|
     t.integer  "order_id"
     t.decimal  "amount",            precision: 8, scale: 2, default: 0.0
     t.string   "reference"
@@ -154,10 +154,10 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.datetime "updated_at"
   end
 
-  add_index "shoppe_payments", ["order_id"], name: "index_shoppe_payments_on_order_id", using: :btree
-  add_index "shoppe_payments", ["parent_payment_id"], name: "index_shoppe_payments_on_parent_payment_id", using: :btree
+  add_index "tienda_payments", ["order_id"], name: "index_tienda_payments_on_order_id", using: :btree
+  add_index "tienda_payments", ["parent_payment_id"], name: "index_tienda_payments_on_parent_payment_id", using: :btree
 
-  create_table "shoppe_product_attributes", force: true do |t|
+  create_table "tienda_product_attributes", force: true do |t|
     t.integer  "product_id"
     t.string   "key"
     t.string   "value"
@@ -168,11 +168,11 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.boolean  "public",     default: true
   end
 
-  add_index "shoppe_product_attributes", ["key"], name: "index_shoppe_product_attributes_on_key", using: :btree
-  add_index "shoppe_product_attributes", ["position"], name: "index_shoppe_product_attributes_on_position", using: :btree
-  add_index "shoppe_product_attributes", ["product_id"], name: "index_shoppe_product_attributes_on_product_id", using: :btree
+  add_index "tienda_product_attributes", ["key"], name: "index_tienda_product_attributes_on_key", using: :btree
+  add_index "tienda_product_attributes", ["position"], name: "index_tienda_product_attributes_on_position", using: :btree
+  add_index "tienda_product_attributes", ["product_id"], name: "index_tienda_product_attributes_on_product_id", using: :btree
 
-  create_table "shoppe_product_categories", force: true do |t|
+  create_table "tienda_product_categories", force: true do |t|
     t.string   "name"
     t.string   "permalink"
     t.text     "description"
@@ -180,9 +180,9 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.datetime "updated_at"
   end
 
-  add_index "shoppe_product_categories", ["permalink"], name: "index_shoppe_product_categories_on_permalink", using: :btree
+  add_index "tienda_product_categories", ["permalink"], name: "index_tienda_product_categories_on_permalink", using: :btree
 
-  create_table "shoppe_products", force: true do |t|
+  create_table "tienda_products", force: true do |t|
     t.integer  "parent_id"
     t.integer  "product_category_id"
     t.string   "name"
@@ -203,20 +203,20 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.boolean  "default",                                     default: false
   end
 
-  add_index "shoppe_products", ["parent_id"], name: "index_shoppe_products_on_parent_id", using: :btree
-  add_index "shoppe_products", ["permalink"], name: "index_shoppe_products_on_permalink", using: :btree
-  add_index "shoppe_products", ["product_category_id"], name: "index_shoppe_products_on_product_category_id", using: :btree
-  add_index "shoppe_products", ["sku"], name: "index_shoppe_products_on_sku", using: :btree
+  add_index "tienda_products", ["parent_id"], name: "index_tienda_products_on_parent_id", using: :btree
+  add_index "tienda_products", ["permalink"], name: "index_tienda_products_on_permalink", using: :btree
+  add_index "tienda_products", ["product_category_id"], name: "index_tienda_products_on_product_category_id", using: :btree
+  add_index "tienda_products", ["sku"], name: "index_tienda_products_on_sku", using: :btree
 
-  create_table "shoppe_settings", force: true do |t|
+  create_table "tienda_settings", force: true do |t|
     t.string "key"
     t.string "value"
     t.string "value_type"
   end
 
-  add_index "shoppe_settings", ["key"], name: "index_shoppe_settings_on_key", using: :btree
+  add_index "tienda_settings", ["key"], name: "index_tienda_settings_on_key", using: :btree
 
-  create_table "shoppe_stock_level_adjustments", force: true do |t|
+  create_table "tienda_stock_level_adjustments", force: true do |t|
     t.integer  "item_id"
     t.string   "item_type"
     t.string   "description"
@@ -227,10 +227,10 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.datetime "updated_at"
   end
 
-  add_index "shoppe_stock_level_adjustments", ["item_id", "item_type"], name: "index_shoppe_stock_level_adjustments_items", using: :btree
-  add_index "shoppe_stock_level_adjustments", ["parent_id", "parent_type"], name: "index_shoppe_stock_level_adjustments_parent", using: :btree
+  add_index "tienda_stock_level_adjustments", ["item_id", "item_type"], name: "index_tienda_stock_level_adjustments_items", using: :btree
+  add_index "tienda_stock_level_adjustments", ["parent_id", "parent_type"], name: "index_tienda_stock_level_adjustments_parent", using: :btree
 
-  create_table "shoppe_tax_rates", force: true do |t|
+  create_table "tienda_tax_rates", force: true do |t|
     t.string   "name"
     t.decimal  "rate",         precision: 8, scale: 2
     t.datetime "created_at"
@@ -239,7 +239,7 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.string   "address_type"
   end
 
-  create_table "shoppe_users", force: true do |t|
+  create_table "tienda_users", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email_address"
@@ -248,6 +248,6 @@ ActiveRecord::Schema.define(version: 20141026181716) do
     t.datetime "updated_at"
   end
 
-  add_index "shoppe_users", ["email_address"], name: "index_shoppe_users_on_email_address", using: :btree
+  add_index "tienda_users", ["email_address"], name: "index_tienda_users_on_email_address", using: :btree
 
 end

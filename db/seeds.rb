@@ -1,28 +1,28 @@
 # encoding: UTF-8
 
 # tax rates
-tax_rate = Shoppe::TaxRate.create!(:name => "Standard VAT", :rate => 20.0)
-exempt_tax = Shoppe::TaxRate.create!(:name => "Exempt VAT", :rate => 0.0)
+tax_rate = Tienda::TaxRate.create!(:name => "Standard VAT", :rate => 20.0)
+exempt_tax = Tienda::TaxRate.create!(:name => "Exempt VAT", :rate => 0.0)
 
 # delivery services
 
-ds = Shoppe::DeliveryService.create!(:name => "Next Day Delivery", :code => 'ND16', :courier => 'AnyCourier', :tracking_url => 'http://trackingurl.com/track/{{consignment_number}}')
+ds = Tienda::DeliveryService.create!(:name => "Next Day Delivery", :code => 'ND16', :courier => 'AnyCourier', :tracking_url => 'http://trackingurl.com/track/{{consignment_number}}')
 ds.delivery_service_prices.create!(:code => 'Parcel', :min_weight => 0, :max_weight => 1, :price => 5.0, :cost_price => 4.50, :tax_rate => tax_rate)
 ds.delivery_service_prices.create!(:code => 'Parcel', :min_weight => 1, :max_weight => 5, :price => 8.0, :cost_price => 7.5, :tax_rate => tax_rate)
 ds.delivery_service_prices.create!(:code => 'Parcel', :min_weight => 5, :max_weight => 20, :price => 10.0, :cost_price => 9.50, :tax_rate => tax_rate)
 
-ds = Shoppe::DeliveryService.create!(:name => "Saturday Delivery", :code => 'NDSA16', :courier => 'AnyCourier', :tracking_url => 'http://trackingurl.com/track/{{consignment_number}}')
+ds = Tienda::DeliveryService.create!(:name => "Saturday Delivery", :code => 'NDSA16', :courier => 'AnyCourier', :tracking_url => 'http://trackingurl.com/track/{{consignment_number}}')
 ds.delivery_service_prices.create!(:code => 'Parcel', :min_weight => 0, :max_weight => 1, :price => 27.0, :cost_price => 24.00, :tax_rate => tax_rate)
 ds.delivery_service_prices.create!(:code => 'Parcel', :min_weight => 1, :max_weight => 5, :price => 29.0, :cost_price => 20.00, :tax_rate => tax_rate)
 ds.delivery_service_prices.create!(:code => 'Parcel', :min_weight => 5, :max_weight => 20, :price => 37.0, :cost_price => 32.00,:tax_rate => tax_rate)
 
 # categories
-cat1 = Shoppe::ProductCategory.create!(:name => 'VoIP Phones')
-cat2 = Shoppe::ProductCategory.create!(:name => 'VoIP Accessories')
-cat3 = Shoppe::ProductCategory.create!(:name => 'Network Eqipment')
+cat1 = Tienda::ProductCategory.create!(:name => 'VoIP Phones')
+cat2 = Tienda::ProductCategory.create!(:name => 'VoIP Accessories')
+cat3 = Tienda::ProductCategory.create!(:name => 'Network Eqipment')
 
 def get_file(name, content_type = 'image/jpeg')
-  file = ActionDispatch::Http::UploadedFile.new(:tempfile => File.open(File.join(Shoppe.root, 'db', 'seeds_data', name), 'rb'))
+  file = ActionDispatch::Http::UploadedFile.new(:tempfile => File.open(File.join(Tienda.root, 'db', 'seeds_data', name), 'rb'))
   file.original_filename = name
   file.content_type = content_type
   file

@@ -1,0 +1,10 @@
+!!!
+%html.login
+  %head
+    %title #{@page_title} - Tienda
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+    = stylesheet_link_tag 'tienda/sub'
+    = javascript_include_tag 'tienda/application'
+  %body
+    #content
+      = yield

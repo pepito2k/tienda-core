@@ -17,20 +17,19 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
-namespace :shoppe do
+namespace :tienda do
   desc 'Publish the release notes'
   task :changelog do
     system "scp -P 32032 CHANGELOG.md vdt@185.44.252.32:/app/docs/CHANGELOG.md"
   end
-  
-  desc "Publish RDoc documentation from doc to api.tryshoppe.com"
+
+  desc "Publish RDoc documentation from doc to api.trytienda.com"
   task :docs do
     if File.exist?('Rakefile')
       system "yard"
-      system "ssh root@tryshoppe.com rm -Rf /var/www/shoppe-api"
-      system "scp -r doc root@tryshoppe.com:/var/www/shoppe-api"
+      system "ssh root@trytienda.com rm -Rf /var/www/tienda-api"
+      system "scp -r doc root@trytienda.com:/var/www/tienda-api"
       system "rm -Rf doc"
     end
   end
 end
-
