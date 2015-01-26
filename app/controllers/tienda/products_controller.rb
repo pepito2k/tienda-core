@@ -15,7 +15,7 @@ module Tienda
     def create
       @product = Tienda::Product.new(safe_params)
       if @product.save
-        redirect_to :products, flash: { notice:  t('tienda.products.create_notice') }
+        redirect_to :products, flash: { notice: t('tienda.products.create_notice') }
       else
         render action: "new"
       end
@@ -51,7 +51,12 @@ module Tienda
     private
 
     def safe_params
-      params[:product].permit(:product_category_id, :name, :sku, :permalink, :description, :short_description, :weight, :price, :cost_price, :tax_rate_id, :stock_control, :default_image_file, :data_sheet_file, :active, :featured, :in_the_box, :product_attributes_array => [:key, :value, :searchable, :public])
+      params[:product].permit(:product_category_id, :name, :sku, :permalink,
+        :description, :short_description, :weight, :price, :cost_price,
+        :tax_rate_id, :stock_control, :default_image_file, :second_image_file,
+        :third_image_file, :fourth_image_file, :fifth_image_file,
+        :data_sheet_file, :active, :featured, :in_the_box,
+        :product_attributes_array => [:key, :value, :searchable, :public])
     end
 
   end

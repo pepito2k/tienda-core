@@ -57,15 +57,43 @@
   = field_set_tag t('tienda.products.attachments') do
     .splitContainer
       %dl.half
-        %dt= f.label :default_image_file, t('tienda.products.default_image')
+        %dt
+          = f.label :default_image_file, t('tienda.products.default_image')
+          %p= f.file_field :default_image_file
         %dd
           = attachment_preview @product.default_image
-          %p= f.file_field :default_image_file
       %dl.half
-        %dt= f.label :data_sheet_file, t('tienda.products.datasheet')
+        %dt
+          = f.label :second_image_file, t('tienda.products.second_image')
+          %p= f.file_field :second_image_file
+        %dd
+          = attachment_preview @product.second_image
+    .splitContainer
+      %dl.half
+        %dt
+          = f.label :third_image_file, t('tienda.products.third_image')
+          %p= f.file_field :third_image_file
+        %dd
+          = attachment_preview @product.third_image
+      %dl.half
+        %dt
+          = f.label :fourth_image_file, t('tienda.products.fourth_image')
+          %p= f.file_field :fourth_image_file
+        %dd
+          = attachment_preview @product.fourth_image
+    .splitContainer
+      %dl.half
+        %dt
+          = f.label :fifth_image_file, t('tienda.products.fifth_image')
+          %p= f.file_field :fifth_image_file
+        %dd
+          = attachment_preview @product.fifth_image
+      %dl.half
+        %dt
+          = f.label :data_sheet_file, t('tienda.products.datasheet')
+          %p= f.file_field :data_sheet_file
         %dd
           = attachment_preview @product.data_sheet
-          %p= f.file_field :data_sheet_file
 
   - unless @product.has_variants?
     = field_set_tag t('tienda.products.pricing') do

@@ -9,8 +9,12 @@ module Tienda
     require_dependency 'tienda/product/product_attributes'
     require_dependency 'tienda/product/variants'
 
-    # Products have a default_image and a data_sheet
+    # Products have 5 images and a data_sheet
     attachment :default_image
+    attachment :second_image
+    attachment :third_image
+    attachment :fourth_image
+    attachment :fifth_image
     attachment :data_sheet
 
     # The product's category
@@ -92,6 +96,13 @@ module Tienda
     # @return [Fixnum]
     def stock
       self.stock_level_adjustments.sum(:adjustment)
+    end
+
+    # Return all product images
+    #
+    # @return [Array]
+    def images
+      nifty_attachments.select { |attachment| attachment.role != "data_sheet" }
     end
 
     # Search for products which include the given attributes and return an active record
