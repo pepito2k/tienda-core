@@ -1,6 +1,6 @@
-require "coffee-rails"
-require "sass-rails"
-require "jquery-rails"
+require 'coffee-rails'
+require 'sass-rails'
+require 'jquery-rails'
 require 'haml'
 require 'bcrypt'
 require 'dynamic_form'
@@ -50,10 +50,8 @@ module Tienda
     def settings_groups
       @settings_groups ||= {}
     end
-
   end
-
 end
 
 # Start your engines.
-require "tienda/engine"
+require 'tienda/engine'

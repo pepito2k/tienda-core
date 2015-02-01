@@ -1,6 +1,5 @@
 module Tienda
   class SettingsLoader
-
     def initialize(app)
       @app = app
     end
@@ -11,6 +10,5 @@ module Tienda
     ensure
       Tienda.reset_settings
     end
-
   end
 end

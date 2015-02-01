@@ -1,7 +1,6 @@
 module Tienda
   module Errors
     class NotEnoughStock < Error
-
       def available_stock
         @options[:ordered_item].stock
       end
@@ -9,7 +8,6 @@ module Tienda
       def requested_stock
         @options[:requested_stock]
       end
-
     end
   end
 end

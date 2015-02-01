@@ -1,6 +1,5 @@
 module Tienda
   class Error < StandardError
-
     def initialize(options = {})
       if options.is_a?(String)
         @options = {:message => options}
@@ -16,6 +15,5 @@ module Tienda
     def options
       @options
     end
-
   end
 end

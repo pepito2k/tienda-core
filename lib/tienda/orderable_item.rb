@@ -2,7 +2,6 @@ module Tienda
   # All items which can be ordered should include this module and ensure that all methods
   # have been overridden. It's a lazy-mans protocol.
   module OrderableItem
-
     # stock_level_adjustments must be an association
 
     def full_name
@@ -34,6 +33,5 @@ module Tienda
 
     def weight
     end
-
   end
 end

@@ -1,16 +1,15 @@
 module Tienda
   class NavigationManager
-
     def self.managers
       @managers ||= []
     end
 
     def self.create(identifier)
-      managers << self.new(identifier.to_s)
+      managers << new(identifier.to_s)
     end
 
     def self.build(identifier, &block)
-      manager = self.new(identifier.to_s)
+      manager = new(identifier.to_s)
       manager.instance_eval(&block) if block_given?
       managers << manager
     end
@@ -37,9 +36,9 @@ module Tienda
       item                  = NavigationItem.new
       item.manager          = self
       item.identifier       = identifier.to_s
-      item.url              = options[:url]             if options[:url]
-      item.link_options     = options[:link_options]    if options[:link_options]
-      item.active_if        = block                     if block_given?
+      item.url              = options[:url]            if options[:url]
+      item.link_options     = options[:link_options]   if options[:link_options]
+      item.active_if        = block                    if block_given?
       items << item
     end
 
@@ -59,9 +58,9 @@ module Tienda
       end
 
       def url(request = nil)
-        (@url.is_a?(Proc) && request && request.instance_eval(&@url) ) ||
-        @url ||
-        Tienda::Engine.routes.url_helpers.send("#{identifier}_path")
+        (@url.is_a?(Proc) && request && request.instance_eval(&@url)) ||
+          @url ||
+          Tienda::Engine.routes.url_helpers.send("#{identifier}_path")
       end
 
       def active?(request)
@@ -76,6 +75,5 @@ module Tienda
         @link_options ||= {}
       end
     end
-
   end
 end
