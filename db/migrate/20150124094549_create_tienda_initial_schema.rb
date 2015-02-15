@@ -122,7 +122,7 @@ class CreateTiendaInitialSchema < ActiveRecord::Migration
       t.integer  :product_category_id, index: true
       t.string   :name
       t.string   :sku, index: true
-      t.string   :permalink,
+      t.string   :permalink
       t.text     :description
       t.text     :short_description
       t.boolean  :active, default: true
