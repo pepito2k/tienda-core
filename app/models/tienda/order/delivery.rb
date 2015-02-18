@@ -221,7 +221,7 @@ module Tienda
         self.status = 'shipped'
         self.consignment_number = consignment_number
         self.save!
-        Tienda::OrderMailer.shipped(self).deliver
+        Tienda::OrderMailer.shipped(self).deliver_now
       end
     end
 

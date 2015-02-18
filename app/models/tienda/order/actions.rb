@@ -83,15 +83,15 @@ module Tienda
     end
 
     def deliver_accepted_order_email
-      Tienda::OrderMailer.accepted(self).deliver
+      Tienda::OrderMailer.accepted(self).deliver_now
     end
 
     def deliver_rejected_order_email
-      Tienda::OrderMailer.rejected(self).deliver
+      Tienda::OrderMailer.rejected(self).deliver_now
     end
 
     def deliver_received_order_email
-      Tienda::OrderMailer.received(self).deliver
+      Tienda::OrderMailer.received(self).deliver_now
     end
 
   end
