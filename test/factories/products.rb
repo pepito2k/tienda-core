@@ -1,22 +1,22 @@
 module Tienda
   FactoryGirl.define do
-    
+
     factory :stock_product, :class => Product do
       description         'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
       product_category    { ProductCategory.find_by_permalink('phones') || create(:phones_category) }
       tax_rate            { TaxRate.find_by_rate(20) || create(:standard_tax) }
       stock_control       true
-      ignore do
+      transient do
         initial_stock nil
       end
-      
+
       after(:create) do |product, ev|
         if ev.initial_stock
           product.stock_level_adjustments.create(:adjustment => ev.initial_stock, :description => "Initial Stock")
         end
       end
     end
-    
+
     factory :yealink_t22p, :parent => :stock_product do
       name                'Yealink T22P'
       sku                 'YT22P'
@@ -25,7 +25,7 @@ module Tienda
       cost_price          50
       weight              1.5
     end
-    
+
     factory :snom_870, :parent => :stock_product do
       name                'Snom 870'
       sku                 'SN870'
@@ -56,6 +56,6 @@ module Tienda
       product_category    { ProductCategory.find_by_permalink('software') || create(:software_category) }
       tax_rate            { TaxRate.find_by_rate(20) || create(:standard_tax) }
     end
-  
+
   end
 end

@@ -11,80 +11,81 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026181716) do
+ActiveRecord::Schema.define(version: 20150124094549) do
 
-  create_table "nifty_attachments", force: true do |t|
-    t.integer  "parent_id"
-    t.string   "parent_type"
-    t.string   "token"
-    t.string   "digest"
-    t.string   "role"
-    t.string   "file_name"
-    t.string   "file_type"
+  create_table "nifty_attachments", force: :cascade do |t|
+    t.integer  "parent_id",   limit: 4
+    t.string   "parent_type", limit: 255
+    t.string   "token",       limit: 255
+    t.string   "digest",      limit: 255
+    t.string   "role",        limit: 255
+    t.string   "file_name",   limit: 255
+    t.string   "file_type",   limit: 255
     t.binary   "data",        limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "nifty_key_value_store", force: true do |t|
-    t.integer "parent_id"
-    t.string  "parent_type"
-    t.string  "group"
-    t.string  "name"
-    t.string  "value"
+  create_table "nifty_key_value_store", force: :cascade do |t|
+    t.integer "parent_id",   limit: 4
+    t.string  "parent_type", limit: 255
+    t.string  "group",       limit: 255
+    t.string  "name",        limit: 255
+    t.string  "value",       limit: 255
   end
 
-  create_table "tienda_countries", force: true do |t|
-    t.string  "name"
-    t.string  "code2"
-    t.string  "code3"
-    t.string  "continent"
-    t.string  "tld"
-    t.string  "currency"
-    t.boolean "eu_member", default: false
+  create_table "tienda_countries", force: :cascade do |t|
+    t.string  "name",      limit: 255
+    t.string  "code2",     limit: 255
+    t.string  "code3",     limit: 255
+    t.string  "continent", limit: 255
+    t.string  "tld",       limit: 255
+    t.string  "currency",  limit: 255
+    t.boolean "eu_member", limit: 1,   default: false
   end
 
-  create_table "tienda_delivery_service_prices", force: true do |t|
-    t.integer  "delivery_service_id"
-    t.string   "code"
-    t.decimal  "price",               precision: 8, scale: 2
-    t.decimal  "cost_price",          precision: 8, scale: 2
-    t.integer  "tax_rate_id"
-    t.decimal  "min_weight",          precision: 8, scale: 2
-    t.decimal  "max_weight",          precision: 8, scale: 2
+  create_table "tienda_delivery_service_prices", force: :cascade do |t|
+    t.integer  "delivery_service_id", limit: 4
+    t.string   "code",                limit: 255
+    t.decimal  "price",                             precision: 8, scale: 2
+    t.decimal  "cost_price",                        precision: 8, scale: 2
+    t.integer  "tax_rate_id",         limit: 4
+    t.decimal  "min_weight",                        precision: 8, scale: 2
+    t.decimal  "max_weight",                        precision: 8, scale: 2
+    t.text     "country_ids",         limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "country_ids"
   end
 
   add_index "tienda_delivery_service_prices", ["delivery_service_id"], name: "index_tienda_delivery_service_prices_on_delivery_service_id", using: :btree
   add_index "tienda_delivery_service_prices", ["max_weight"], name: "index_tienda_delivery_service_prices_on_max_weight", using: :btree
   add_index "tienda_delivery_service_prices", ["min_weight"], name: "index_tienda_delivery_service_prices_on_min_weight", using: :btree
   add_index "tienda_delivery_service_prices", ["price"], name: "index_tienda_delivery_service_prices_on_price", using: :btree
+  add_index "tienda_delivery_service_prices", ["tax_rate_id"], name: "index_tienda_delivery_service_prices_on_tax_rate_id", using: :btree
 
-  create_table "tienda_delivery_services", force: true do |t|
-    t.string   "name"
-    t.string   "code"
-    t.boolean  "default",      default: false
-    t.boolean  "active",       default: true
+  create_table "tienda_delivery_services", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.string   "code",         limit: 255
+    t.boolean  "default",      limit: 1,   default: false
+    t.boolean  "active",       limit: 1,   default: true
+    t.string   "courier",      limit: 255
+    t.string   "tracking_url", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "courier"
-    t.string   "tracking_url"
   end
 
   add_index "tienda_delivery_services", ["active"], name: "index_tienda_delivery_services_on_active", using: :btree
 
-  create_table "tienda_order_items", force: true do |t|
-    t.integer  "order_id"
-    t.integer  "ordered_item_id"
-    t.string   "ordered_item_type"
-    t.integer  "quantity",                                  default: 1
-    t.decimal  "unit_price",        precision: 8, scale: 2
-    t.decimal  "unit_cost_price",   precision: 8, scale: 2
-    t.decimal  "tax_amount",        precision: 8, scale: 2
-    t.decimal  "tax_rate",          precision: 8, scale: 2
-    t.decimal  "weight",            precision: 8, scale: 3
+  create_table "tienda_order_items", force: :cascade do |t|
+    t.integer  "order_id",          limit: 4
+    t.integer  "ordered_item_id",   limit: 4
+    t.string   "ordered_item_type", limit: 255
+    t.integer  "quantity",          limit: 4,                           default: 1
+    t.decimal  "unit_price",                    precision: 8, scale: 2
+    t.decimal  "unit_cost_price",               precision: 8, scale: 2
+    t.decimal  "tax_amount",                    precision: 8, scale: 2
+    t.decimal  "tax_rate",                      precision: 8, scale: 2
+    t.decimal  "weight",                        precision: 8, scale: 3
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -92,64 +93,66 @@ ActiveRecord::Schema.define(version: 20141026181716) do
   add_index "tienda_order_items", ["order_id"], name: "index_tienda_order_items_on_order_id", using: :btree
   add_index "tienda_order_items", ["ordered_item_id", "ordered_item_type"], name: "index_tienda_order_items_ordered_item", using: :btree
 
-  create_table "tienda_orders", force: true do |t|
-    t.string   "token"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "company"
-    t.string   "billing_address1"
-    t.string   "billing_address2"
-    t.string   "billing_address3"
-    t.string   "billing_address4"
-    t.string   "billing_postcode"
-    t.integer  "billing_country_id"
-    t.string   "email_address"
-    t.string   "phone_number"
-    t.string   "status"
+  create_table "tienda_orders", force: :cascade do |t|
+    t.string   "token",                     limit: 255
+    t.string   "first_name",                limit: 255
+    t.string   "last_name",                 limit: 255
+    t.string   "company",                   limit: 255
+    t.string   "billing_address1",          limit: 255
+    t.string   "billing_address2",          limit: 255
+    t.string   "billing_address3",          limit: 255
+    t.string   "billing_address4",          limit: 255
+    t.string   "billing_postcode",          limit: 255
+    t.integer  "billing_country_id",        limit: 4
+    t.string   "email_address",             limit: 255
+    t.string   "phone_number",              limit: 255
+    t.string   "status",                    limit: 255
     t.datetime "received_at"
     t.datetime "accepted_at"
     t.datetime "shipped_at"
+    t.integer  "delivery_service_id",       limit: 4
+    t.decimal  "delivery_price",                          precision: 8, scale: 2
+    t.decimal  "delivery_cost_price",                     precision: 8, scale: 2
+    t.decimal  "delivery_tax_rate",                       precision: 8, scale: 2
+    t.decimal  "delivery_tax_amount",                     precision: 8, scale: 2
+    t.integer  "accepted_by",               limit: 4
+    t.integer  "shipped_by",                limit: 4
+    t.string   "consignment_number",        limit: 255
+    t.datetime "rejected_at"
+    t.integer  "rejected_by",               limit: 4
+    t.string   "ip_address",                limit: 255
+    t.text     "notes",                     limit: 65535
+    t.boolean  "separate_delivery_address", limit: 1,                             default: false
+    t.string   "delivery_name",             limit: 255
+    t.string   "delivery_address1",         limit: 255
+    t.string   "delivery_address2",         limit: 255
+    t.string   "delivery_address3",         limit: 255
+    t.string   "delivery_address4",         limit: 255
+    t.string   "delivery_postcode",         limit: 255
+    t.integer  "delivery_country_id",       limit: 4
+    t.decimal  "amount_paid",                             precision: 8, scale: 2, default: 0.0
+    t.boolean  "exported",                  limit: 1,                             default: false
+    t.string   "invoice_number",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "delivery_service_id"
-    t.decimal  "delivery_price",            precision: 8, scale: 2
-    t.decimal  "delivery_cost_price",       precision: 8, scale: 2
-    t.decimal  "delivery_tax_rate",         precision: 8, scale: 2
-    t.decimal  "delivery_tax_amount",       precision: 8, scale: 2
-    t.integer  "accepted_by"
-    t.integer  "shipped_by"
-    t.string   "consignment_number"
-    t.datetime "rejected_at"
-    t.integer  "rejected_by"
-    t.string   "ip_address"
-    t.text     "notes"
-    t.boolean  "separate_delivery_address",                         default: false
-    t.string   "delivery_name"
-    t.string   "delivery_address1"
-    t.string   "delivery_address2"
-    t.string   "delivery_address3"
-    t.string   "delivery_address4"
-    t.string   "delivery_postcode"
-    t.integer  "delivery_country_id"
-    t.decimal  "amount_paid",               precision: 8, scale: 2, default: 0.0
-    t.boolean  "exported",                                          default: false
-    t.string   "invoice_number"
   end
 
+  add_index "tienda_orders", ["billing_country_id"], name: "index_tienda_orders_on_billing_country_id", using: :btree
+  add_index "tienda_orders", ["delivery_country_id"], name: "index_tienda_orders_on_delivery_country_id", using: :btree
   add_index "tienda_orders", ["delivery_service_id"], name: "index_tienda_orders_on_delivery_service_id", using: :btree
   add_index "tienda_orders", ["received_at"], name: "index_tienda_orders_on_received_at", using: :btree
   add_index "tienda_orders", ["token"], name: "index_tienda_orders_on_token", using: :btree
 
-  create_table "tienda_payments", force: true do |t|
-    t.integer  "order_id"
-    t.decimal  "amount",            precision: 8, scale: 2, default: 0.0
-    t.string   "reference"
-    t.string   "method"
-    t.boolean  "confirmed",                                 default: true
-    t.boolean  "refundable",                                default: false
-    t.decimal  "amount_refunded",   precision: 8, scale: 2, default: 0.0
-    t.integer  "parent_payment_id"
-    t.boolean  "exported",                                  default: false
+  create_table "tienda_payments", force: :cascade do |t|
+    t.integer  "order_id",          limit: 4
+    t.decimal  "amount",                        precision: 8, scale: 2, default: 0.0
+    t.string   "reference",         limit: 255
+    t.string   "method",            limit: 255
+    t.boolean  "confirmed",         limit: 1,                           default: true
+    t.boolean  "refundable",        limit: 1,                           default: false
+    t.decimal  "amount_refunded",               precision: 8, scale: 2, default: 0.0
+    t.integer  "parent_payment_id", limit: 4
+    t.boolean  "exported",          limit: 1,                           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -157,72 +160,72 @@ ActiveRecord::Schema.define(version: 20141026181716) do
   add_index "tienda_payments", ["order_id"], name: "index_tienda_payments_on_order_id", using: :btree
   add_index "tienda_payments", ["parent_payment_id"], name: "index_tienda_payments_on_parent_payment_id", using: :btree
 
-  create_table "tienda_product_attributes", force: true do |t|
-    t.integer  "product_id"
-    t.string   "key"
-    t.string   "value"
-    t.integer  "position",   default: 1
-    t.boolean  "searchable", default: true
+  create_table "tienda_product_attributes", force: :cascade do |t|
+    t.integer  "product_id", limit: 4
+    t.string   "key",        limit: 255
+    t.string   "value",      limit: 255
+    t.integer  "position",   limit: 4,   default: 1
+    t.boolean  "searchable", limit: 1,   default: true
+    t.boolean  "public",     limit: 1,   default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "public",     default: true
   end
 
   add_index "tienda_product_attributes", ["key"], name: "index_tienda_product_attributes_on_key", using: :btree
   add_index "tienda_product_attributes", ["position"], name: "index_tienda_product_attributes_on_position", using: :btree
   add_index "tienda_product_attributes", ["product_id"], name: "index_tienda_product_attributes_on_product_id", using: :btree
 
-  create_table "tienda_product_categories", force: true do |t|
-    t.string   "name"
-    t.string   "permalink"
-    t.text     "description"
+  create_table "tienda_product_categories", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "permalink",   limit: 255
+    t.text     "description", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "tienda_product_categories", ["permalink"], name: "index_tienda_product_categories_on_permalink", using: :btree
 
-  create_table "tienda_products", force: true do |t|
-    t.integer  "parent_id"
-    t.integer  "product_category_id"
-    t.string   "name"
-    t.string   "sku"
-    t.string   "permalink"
-    t.text     "description"
-    t.text     "short_description"
-    t.boolean  "active",                                      default: true
-    t.decimal  "weight",              precision: 8, scale: 3, default: 0.0
-    t.decimal  "price",               precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_price",          precision: 8, scale: 2, default: 0.0
-    t.integer  "tax_rate_id"
+  create_table "tienda_products", force: :cascade do |t|
+    t.integer  "parent_id",           limit: 4
+    t.integer  "product_category_id", limit: 4
+    t.string   "name",                limit: 255
+    t.string   "sku",                 limit: 255
+    t.string   "permalink",           limit: 255
+    t.text     "description",         limit: 65535
+    t.text     "short_description",   limit: 65535
+    t.boolean  "active",              limit: 1,                             default: true
+    t.decimal  "weight",                            precision: 8, scale: 3, default: 0.0
+    t.decimal  "price",                             precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_price",                        precision: 8, scale: 2, default: 0.0
+    t.integer  "tax_rate_id",         limit: 4
+    t.boolean  "featured",            limit: 1,                             default: false
+    t.text     "in_the_box",          limit: 65535
+    t.boolean  "stock_control",       limit: 1,                             default: true
+    t.boolean  "default",             limit: 1,                             default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "featured",                                    default: false
-    t.text     "in_the_box"
-    t.boolean  "stock_control",                               default: true
-    t.boolean  "default",                                     default: false
   end
 
   add_index "tienda_products", ["parent_id"], name: "index_tienda_products_on_parent_id", using: :btree
-  add_index "tienda_products", ["permalink"], name: "index_tienda_products_on_permalink", using: :btree
   add_index "tienda_products", ["product_category_id"], name: "index_tienda_products_on_product_category_id", using: :btree
   add_index "tienda_products", ["sku"], name: "index_tienda_products_on_sku", using: :btree
+  add_index "tienda_products", ["tax_rate_id"], name: "index_tienda_products_on_tax_rate_id", using: :btree
 
-  create_table "tienda_settings", force: true do |t|
-    t.string "key"
-    t.string "value"
-    t.string "value_type"
+  create_table "tienda_settings", force: :cascade do |t|
+    t.string "key",        limit: 255
+    t.string "value",      limit: 255
+    t.string "value_type", limit: 255
   end
 
   add_index "tienda_settings", ["key"], name: "index_tienda_settings_on_key", using: :btree
 
-  create_table "tienda_stock_level_adjustments", force: true do |t|
-    t.integer  "item_id"
-    t.string   "item_type"
-    t.string   "description"
-    t.integer  "adjustment",  default: 0
-    t.string   "parent_type"
-    t.integer  "parent_id"
+  create_table "tienda_stock_level_adjustments", force: :cascade do |t|
+    t.integer  "item_id",     limit: 4
+    t.string   "item_type",   limit: 255
+    t.string   "description", limit: 255
+    t.integer  "adjustment",  limit: 4,   default: 0
+    t.string   "parent_type", limit: 255
+    t.integer  "parent_id",   limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -230,20 +233,20 @@ ActiveRecord::Schema.define(version: 20141026181716) do
   add_index "tienda_stock_level_adjustments", ["item_id", "item_type"], name: "index_tienda_stock_level_adjustments_items", using: :btree
   add_index "tienda_stock_level_adjustments", ["parent_id", "parent_type"], name: "index_tienda_stock_level_adjustments_parent", using: :btree
 
-  create_table "tienda_tax_rates", force: true do |t|
-    t.string   "name"
-    t.decimal  "rate",         precision: 8, scale: 2
+  create_table "tienda_tax_rates", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.decimal  "rate",                       precision: 8, scale: 2
+    t.string   "address_type", limit: 255
+    t.text     "country_ids",  limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "country_ids"
-    t.string   "address_type"
   end
 
-  create_table "tienda_users", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email_address"
-    t.string   "password_digest"
+  create_table "tienda_users", force: :cascade do |t|
+    t.string   "first_name",      limit: 255
+    t.string   "last_name",       limit: 255
+    t.string   "email_address",   limit: 255
+    t.string   "password_digest", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end

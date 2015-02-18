@@ -1,6 +1,6 @@
 module Tienda
   FactoryGirl.define do
-    
+
     factory :delivery_price, :class => DeliveryServicePrice do
       price           5.0
       cost_price      2.50
@@ -10,7 +10,7 @@ module Tienda
       association     :tax_rate,          :factory => :standard_tax
       association     :delivery_service,  :factory => :delivery_service
     end
-    
+
     factory :delivery_service, :class => DeliveryService do
       name           'Next Day Delivery'
       code           'ND'
@@ -20,10 +20,10 @@ module Tienda
       tracking_url   'http://sometrackingsite.com/{{consignment_number}}/{{billing_postcode}}/{{delivery_postcode}}'
 
       factory :delivery_service_with_prices do
-        ignore do
+        transient do
           country_ids []
         end
-        
+
         after(:create) do |service, evaluator|
           country_ids = evaluator.country_ids
           FactoryGirl.create(:delivery_price, :delivery_service => service, :country_ids => country_ids)
@@ -58,6 +58,6 @@ module Tienda
         end
       end
     end
-    
+
   end
 end
