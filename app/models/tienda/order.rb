@@ -13,17 +13,17 @@ module Tienda
     require_dependency 'tienda/order/delivery'
 
     # All items which make up this order
-    has_many :order_items, :dependent => :destroy, :class_name => 'Tienda::OrderItem'
-    accepts_nested_attributes_for :order_items, :allow_destroy => true, :reject_if => Proc.new { |a| a['ordered_item_id'].blank? }
+    has_many :order_items, dependent: :destroy, class_name: 'Tienda::OrderItem'
+    accepts_nested_attributes_for :order_items, allow_destroy: true, reject_if: Proc.new { |a| a['ordered_item_id'].blank? }
 
     # All products which are part of this order (accessed through the items)
-    has_many :products, :through => :order_items, :class_name => 'Tienda::Product', :source => :ordered_item, :source_type => 'Tienda::Product'
+    has_many :products, through: :order_items, class_name: 'Tienda::Product', source: :ordered_item, source_type: 'Tienda::Product'
 
     # Validations
-    validates :token, :presence => true
-    with_options :if => Proc.new { |o| !o.building? } do |order|
-      order.validates :email_address, :format => {:with => /\A\b[A-Z0-9\.\_\%\-\+]+@(?:[A-Z0-9\-]+\.)+[A-Z]{2,6}\b\z/i}
-      order.validates :phone_number, :format => {:with => /\A[\d\ \-x\(\)]{7,}\z/}
+    validates :token, presence: true
+    with_options if: Proc.new { |o| !o.building? } do |order|
+      order.validates :email_address, format: {:with => /\A\b[A-Z0-9\.\_\%\-\+]+@(?:[A-Z0-9\-]+\.)+[A-Z]{2,6}\b\z/i}
+      order.validates :phone_number, format: {:with => /\A[\d\ \-x\(\)]{7,}\z/}
     end
 
     # Set some defaults
