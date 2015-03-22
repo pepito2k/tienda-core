@@ -22,8 +22,8 @@ module Tienda
     # Validations
     validates :token, presence: true
     with_options if: Proc.new { |o| !o.building? } do |order|
-      order.validates :email_address, format: {:with => /\A\b[A-Z0-9\.\_\%\-\+]+@(?:[A-Z0-9\-]+\.)+[A-Z]{2,6}\b\z/i}
-      order.validates :phone_number, format: {:with => /\A[\d\ \-x\(\)]{7,}\z/}
+      order.validates :email_address, format: { with: /\A\b[A-Z0-9\.\_\%\-\+]+@(?:[A-Z0-9\-]+\.)+[A-Z]{2,6}\b\z/i }
+      order.validates :phone_number, format: { with: /\A[\d\ \-x\(\)]{7,}\z/ }
     end
 
     # Set some defaults
@@ -82,7 +82,7 @@ module Tienda
     end
 
     def self.ransackable_attributes(auth_object = nil)
-      ["id", "billing_postcode", "billing_address1", "billing_address2", "billing_address3", "billing_address4", "first_name", "last_name", "company", "email_address", "phone_number", "consignment_number", "status", "received_at"] + _ransackers.keys
+      ['id', 'billing_postcode', 'billing_address1', 'billing_address2', 'billing_address3', 'billing_address4', 'first_name', 'last_name', 'company', 'email_address', 'phone_number', 'consignment_number', 'status', 'received_at'] + _ransackers.keys
     end
 
     def self.ransackable_associations(auth_object = nil)
