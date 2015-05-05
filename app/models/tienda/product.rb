@@ -133,22 +133,11 @@ module Tienda
           if product = find_by(name: row["name"])
             # Dont import products with the same name but update quantities if they're not the same
             qty = row["qty"].to_i
-            if qty > 0 && qty != product.stock
-              product.stock_level_adjustments.create!(description: I18n.t('tienda.import'), adjustment: qty)
-            end
+            product.stock_level_adjustments.create!(description: I18n.t('tienda.import'), adjustment: qty) if qty > 0 && qty != product.stock
           else
-            product = new({
-              name: row['name'],
-              sku: row['sku'],
-              description: row['description'],
-              short_description: row['short_description'],
-              weight: row['weight'],
-              price: row['price'].nil? ? 0 : row['price']
-            })
-
+            product = new(row)
             product.product_category_id =
               Tienda::ProductCategory.find_or_create_by(name: row['category_name']).id
-
             product.save!
 
             # Create quantities
