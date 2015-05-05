@@ -20,46 +20,46 @@ module Tienda
     # The product's category
     #
     # @return [Tienda::ProductCategory]
-    belongs_to :product_category, :class_name => 'Tienda::ProductCategory'
+    belongs_to :product_category, class_name: 'Tienda::ProductCategory'
 
     # The product's tax rate
     #
     # @return [Tienda::TaxRate]
-    belongs_to :tax_rate, :class_name => "Tienda::TaxRate"
+    belongs_to :tax_rate, class_name: "Tienda::TaxRate"
 
     # Ordered items which are associated with this product
-    has_many :order_items, :dependent => :restrict_with_exception, :class_name => 'Tienda::OrderItem', :as => :ordered_item
+    has_many :order_items, dependent: :restrict_with_exception, class_name: 'Tienda::OrderItem', as: :ordered_item
 
     # Orders which have ordered this product
-    has_many :orders, :through => :order_items, :class_name => 'Tienda::Order'
+    has_many :orders, through: :order_items, class_name: 'Tienda::Order'
 
     # Stock level adjustments for this product
-    has_many :stock_level_adjustments, :dependent => :destroy, :class_name => 'Tienda::StockLevelAdjustment', :as => :item
+    has_many :stock_level_adjustments, dependent: :destroy, class_name: 'Tienda::StockLevelAdjustment', as: :item
 
     # Validations
-    with_options :if => Proc.new { |p| p.parent.nil? } do |product|
-      product.validates :product_category_id, :presence => true
-      product.validates :description, :presence => true
-      product.validates :short_description, :presence => true
+    with_options if: Proc.new { |p| p.parent.nil? } do |product|
+      product.validates :product_category_id, presence: true
+      product.validates :description, presence: true
+      product.validates :short_description, presence: true
     end
-    validates :name, :presence => true
-    validates :permalink, :presence => true, :uniqueness => true, :permalink => true
-    validates :sku, :presence => true
-    validates :weight, :numericality => true
-    validates :price, :numericality => true
-    validates :cost_price, :numericality => true, :allow_blank => true
+    validates :name, presence: true
+    validates :permalink, presence: true, uniqueness: true, permalink: true
+    validates :sku, presence: true
+    validates :weight, numericality: true
+    validates :price, numericality: true
+    validates :cost_price, numericality: true, allow_blank: true
 
     # Before validation, set the permalink if we don't already have one
     before_validation { self.permalink = self.name.parameterize if self.permalink.blank? && self.name.is_a?(String) }
 
     # All active products
-    scope :active, -> { where(:active => true) }
+    scope :active, -> { where(active: true) }
 
     # All featured products
-    scope :featured, -> {where(:featured => true)}
+    scope :featured, -> { where(featured: true) }
 
     # All products ordered with default items first followed by name ascending
-    scope :ordered, -> {order(:default => :desc, :name => :asc)}
+    scope :ordered, -> { order(default: :desc, name: :asc) }
 
     # Return the name of the product
     #
@@ -113,8 +113,8 @@ module Tienda
     #
     # @return [Enumerable]
     def self.with_attributes(key, values)
-      product_ids = Tienda::ProductAttribute.searchable.where(:key => key, :value => values).pluck(:product_id).uniq
-      where(:id => product_ids)
+      product_ids = Tienda::ProductAttribute.searchable.where(key: key, value: values).pluck(:product_id).uniq
+      where(id: product_ids)
     end
 
     # Imports products from a spreadsheet file
@@ -137,31 +137,23 @@ module Tienda
               product.stock_level_adjustments.create!(description: I18n.t('tienda.import'), adjustment: qty)
             end
           else
-            product = new
-            product.name = row["name"]
-            product.sku = row["sku"]
-            product.description = row["description"]
-            product.short_description = row["short_description"]
-            product.weight = row["weight"]
-            product.price = row["price"].nil? ? 0 : row["price"]
+            product = new({
+              name: row['name'],
+              sku: row['sku'],
+              description: row['description'],
+              short_description: row['short_description'],
+              weight: row['weight'],
+              price: row['price'].nil? ? 0 : row['price']
+            })
 
-            product.product_category_id = begin
-              if Tienda::ProductCategory.find_by(name: row["category_name"]).present?
-                # Find and set the category
-                Tienda::ProductCategory.find_by(name: row["category_name"]).id
-              else
-                # Create the category
-                Tienda::ProductCategory.create(name: row["category_name"]).id
-              end
-            end
+            product.product_category_id =
+              Tienda::ProductCategory.find_or_create_by(name: row['category_name']).id
 
             product.save!
 
             # Create quantities
             qty = row["qty"].to_i
-            if qty > 0
-              product.stock_level_adjustments.create!(description: I18n.t('tienda.import'), adjustment: qty)
-            end
+            product.stock_level_adjustments.create!(description: I18n.t('tienda.import'), adjustment: qty) if qty > 0
           end
         end
       end
