@@ -11,3 +11,6 @@ script:
   - RAILS_ENV=test bundle exec rake test
 notifications:
   email: gonzalo@robaina.me
+addons:
+  code_climate:
+    repo_token: d2b776330f7514d7a959cfaf6982bee026b317666ab93adddb4fcaabce96eb5e
