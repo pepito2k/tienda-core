@@ -1,55 +1,80 @@
 = field_set_tag t('tienda.orders.billing_address') do
-  .splitContainer
-    %dl.third
-      %dt= f.label :first_name, t('tienda.orders.first_name')
-      %dd= f.text_field :first_name, :class => 'focus text'
-    %dl.third
-      %dt= f.label :last_name, t('tienda.orders.last_name')
-      %dd= f.text_field :last_name, :class => 'text'
-    %dl.third
-      %dt= f.label :company, t('tienda.orders.company')
-      %dd= f.text_field :company, :class => 'text'
-  %dl
-    %dt= f.label :billing_address1, t('tienda.orders.address')
-    %dd.space= f.text_field :billing_address1, :class => 'text'
-    %dd.space= f.text_field :billing_address2, :class => 'text'
-    %dd.space= f.text_field :billing_address3, :class => 'text'
-    %dd.space= f.text_field :billing_address4, :class => 'text'
-  .splitContainer
-    %dl.half
-      %dt= f.label :billing_postcode, t('tienda.orders.post_code')
-      %dd= f.text_field :billing_postcode, :class => 'text'
-    %dl.half
-      %dt= f.label :billing_country_id, t('tienda.orders.country')
-      %dd= f.collection_select :billing_country_id, Tienda::Country.ordered, :id, :name, {:include_blank => true}, {:data => {:placeholder => t('tienda.orders.select_country')}}
+  .row
+    .col-md-4
+      .form-group
+      = f.label :first_name, t('tienda.orders.first_name')
+      = f.text_field :first_name, class: 'focus form-control'
+    .col-md-4
+      .form-group
+      = f.label :last_name, t('tienda.orders.last_name')
+      = f.text_field :last_name, class: 'form-control'
+    .col-md-4
+      .form-group
+      = f.label :company, t('tienda.orders.company')
+      = f.text_field :company, class: 'form-control'
+  .row
+    .col-md-12
+      &nbsp;
+  .row
+    .col-md-12
+      .form-group
+        = f.label :billing_address1, t('tienda.orders.address')
+        = f.text_field :billing_address1, class: 'form-control'
+        = f.text_field :billing_address2, class: 'form-control'
+        = f.text_field :billing_address3, class: 'form-control'
+        = f.text_field :billing_address4, class: 'form-control'
+  .row
+    .col-md-12
+      &nbsp;
+  .row
+    .col-md-6
+      .form-group
+        = f.label :billing_postcode, t('tienda.orders.post_code')
+        = f.text_field :billing_postcode, class: 'form-control'
+    .col-md-6
+      .form-group
+        = f.label :billing_country_id, t('tienda.orders.country')
+        = f.collection_select :billing_country_id, Tienda::Country.ordered, :id, :name, {include_blank: true}, {class: 'form-control', data: {placeholder: t('tienda.orders.select_country')}}
+  .row
+    .col-md-12
+      &nbsp;
+  .row
+    .col-md-4
+      .form-group
+        = f.label :email_address, t('tienda.orders.email_address')
+        = f.text_field :email_address, class: 'form-control'
+    .col-md-4
+      .form-group
+        = f.label :phone_number, t('tienda.orders.phone_number')
+        = f.text_field :phone_number, class: 'form-control'
+    .col-md-4
+      .form-group
+        = f.label :separate_delivery_address, t('tienda.orders.separate_delivery_address')
+        .checkbox
+          %label
+            = f.check_box :separate_delivery_address
+            = t('tienda.orders.use_separate_delivery_address?')
 
-  .splitContainer
-    %dl.third
-      %dt= f.label :email_address, t('tienda.orders.email_address')
-      %dd= f.text_field :email_address, :class => 'text'
-    %dl.third
-      %dt= f.label :phone_number, t('tienda.orders.phone_number')
-      %dd= f.text_field :phone_number, :class => 'text'
-    %dl.third
-      %dt= f.label :separate_delivery_address, t('tienda.orders.separate_delivery_address')
-      %dd.checkbox
-        = f.check_box :separate_delivery_address
-        = f.label :separate_delivery_address, t('tienda.orders.use_separate_delivery_address?')
-
-= field_set_tag t('tienda.orders.delivery_address'), :class => 'delivery' do
-  %dl
-    %dt= f.label :delivery_name, t('tienda.orders.delivery_name')
-    %dd= f.text_field :delivery_name, :class => 'text'
-  %dl
-    %dt= f.label :delivery_address1, t('tienda.orders.address')
-    %dd.space= f.text_field :delivery_address1, :class => 'text'
-    %dd.space= f.text_field :delivery_address2, :class => 'text'
-    %dd.space= f.text_field :delivery_address3, :class => 'text'
-    %dd.space= f.text_field :delivery_address4, :class => 'text'
-  .splitContainer
-    %dl.half
-      %dt= f.label :delivery_postcode, t('tienda.orders.post_code')
-      %dd= f.text_field :delivery_postcode, :class => 'text'
-    %dl.half
-      %dt= f.label :delivery_country_id, t('tienda.orders.country')
-      %dd= f.collection_select :delivery_country_id, Tienda::Country.ordered, :id, :name, {:include_blank => true}, {:data => {:placeholder => t('tienda.orders.select_country')}}
+= field_set_tag t('tienda.orders.delivery_address'), class: 'delivery' do
+  .row
+    .col-md-12
+      .form-group
+        = f.label :delivery_name, t('tienda.orders.delivery_name')
+        = f.text_field :delivery_name, class: 'form-control'
+  .row
+    .col-md-12
+      .form-group
+        = f.label :delivery_address1, t('tienda.orders.address')
+        = f.text_field :delivery_address1, class: 'form-control'
+        = f.text_field :delivery_address2, class: 'form-control'
+        = f.text_field :delivery_address3, class: 'form-control'
+        = f.text_field :delivery_address4, class: 'form-control'
+  .row
+    .col-md-6
+      .form-group
+        = f.label :delivery_postcode, t('tienda.orders.post_code')
+        = f.text_field :delivery_postcode, class: 'form-control'
+    .col-md-6
+      .form-group
+        = f.label :delivery_country_id, t('tienda.orders.country')
+        = f.collection_select :delivery_country_id, Tienda::Country.ordered, :id, :name, {include_blank: true}, {class: 'form-control', data: {placeholder: t('tienda.orders.select_country')}}

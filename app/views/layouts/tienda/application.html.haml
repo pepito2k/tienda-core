@@ -1,34 +1,39 @@
 !!!
-%html
+%html{lang: I18n.locale}
   %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     %title #{@page_title} - Tienda
-    = stylesheet_link_tag 'tienda/application'
+    %meta{content: "http://gonzalo.robaina.me", name: "author"}/
+    =# stylesheet_link_tag 'tienda/application'
+    / Bootstrap Styles
+    %link{href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css', rel: 'stylesheet'}
+    / FontAwesome Styles
+    %link{href: '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', rel: 'stylesheet'}
+    / Morris Chart and Custom Styles
+    = stylesheet_link_tag 'tienda/morris-0.4.3.min', 'tienda/custom-styles'
+    / Google Fonts
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans", :rel => "stylesheet", :type => "text/css"}/
     = javascript_include_tag 'tienda/application'
     = csrf_meta_tags
     :javascript
       window.Tienda = {}
       window.Tienda.currencyUnit = "#{h Tienda.settings.currency_unit}";
   %body
-    %nav.sidebar
-      %header.logo
-        %h1= link_to "Tienda", root_path
-        %p v#{Tienda::VERSION}
-      %p.logged= t('.logged_in_as', user_name: current_user.full_name)
+    #wrapper
+      = render 'navbar'
 
-      %ul
-        - for item in Tienda::NavigationManager.find(:admin_primary).items
-          %li= navigation_manager_link item
+      = render 'sidebar'
 
-        %li= link_to t('.logout'), [:logout], :method => :delete
+      #page-wrapper
+        #page-inner
+          = yield
 
-    %header.main
-      = yield :header
+          %footer
+            %p
+              All right reserved. Template by:
+              %a{:href => "http://webthemez.com"} WebThemez
 
-    #content
-      = display_flash
-      %section.main
-        = yield
-
-    %footer
-      %p.store= link_to "&larr; #{t('.goto')} #{Tienda.settings.store_name}".html_safe, '/'
-
+  %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"}
+  = javascript_include_tag 'tienda/jquery.metisMenu', 'tienda/raphael-2.1.0.min', 'tienda/morris', 'tienda/custom-scripts'

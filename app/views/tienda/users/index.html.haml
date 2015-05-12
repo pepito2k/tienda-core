@@ -1,17 +1,27 @@
 - @page_title = t('tienda.users.users')
 
-= content_for :header do
-  %p.buttons= link_to t('tienda.users.new_user'), :new_user, :class => 'button green'
-  %h2.users= t('tienda.users.users')
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.users.users')
+      %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.users.new_user'), :new_user, class: 'btn btn-primary'
 
-.table
-  %table.data
-    %thead
-      %tr
-        %th= t('tienda.users.name')
-        %th= t('tienda.users.email')
-    %tbody
-      - for user in @users
+.panel.panel-default
+  .panel-heading
+    Listing users
+  .panel-body
+    %table.table.table-hover
+      %thead
         %tr
-          %td= link_to user.full_name, [:edit, user]
-          %td= user.email_address
+          %th= t('tienda.users.name')
+          %th= t('tienda.users.email')
+      %tbody
+        - for user in @users
+          %tr
+            %td= link_to user.full_name, [:edit, user]
+            %td= user.email_address

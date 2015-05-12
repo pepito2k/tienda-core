@@ -1,17 +1,27 @@
 - @page_title = t('tienda.tax_rates.tax_rates')
 
-= content_for :header do
-  %p.buttons= link_to t('tienda.tax_rates.new_tax_rate'), :new_tax_rate, :class => 'button green'
-  %h2.tax_rates= t('tienda.tax_rates.tax_rates')
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.tax_rates.tax_rates')
+      %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.tax_rates.new_tax_rate'), :new_tax_rate, class: 'btn btn-primary'
 
-.table
-  %table.data
-    %thead
-      %tr
-        %th= t('tienda.tax_rates.name')
-        %th= t('tienda.tax_rates.rate')
-    %tbody
-      - for tax_rate in @tax_rates
+.panel.panel-default
+  .panel-heading
+    Listing tax rates
+  .panel-body
+    %table.table.table-hover
+      %thead
         %tr
-          %td= link_to tax_rate.name, [:edit, tax_rate]
-          %td= tax_rate.rate
+          %th= t('tienda.tax_rates.name')
+          %th= t('tienda.tax_rates.rate')
+      %tbody
+        - for tax_rate in @tax_rates
+          %tr
+            %td= link_to tax_rate.name, [:edit, tax_rate]
+            %td= tax_rate.rate

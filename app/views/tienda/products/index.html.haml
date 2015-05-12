@@ -1,9 +1,19 @@
 - @page_title = t('tienda.products.products')
 
-= content_for :header do
-  %p.buttons
-    = link_to t('tienda.products.new_product'), :new_product, :class => 'button green'
-    = link_to t('tienda.products.import_products'), :import_products, :class => 'button gray'
-  %h2.products= t('tienda.products.products')
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.products.products')
+      %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.products.new_product'), :new_product, class: 'btn btn-primary'
+      = link_to t('tienda.products.import_products'), :import_products, class: 'btn btn-default'
 
-= render 'table', :products => @products
+.panel.panel-default
+  .panel-heading
+    Listing products
+  .panel-body
+    = render 'table', products: @products

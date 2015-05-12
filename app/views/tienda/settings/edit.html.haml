@@ -1,19 +1,25 @@
 - @page_title = t("tienda.settings.settings")
 
-= content_for :header do
-  %h2.settings= t("tienda.settings.settings")
+.row
+  .col-md-12
+    %h1.page-header
+      = t("tienda.settings.settings")
+      %small Lorem ipsum dolor
+/ /. ROW
 
-= form_tag :url => settings_path do |f|
+.panel.panel-default
+  .panel-body
+    = form_tag({url: settings_path}, {class: 'form-horizontal'}) do |f|
 
-  - Tienda.settings_groups.each do |group, fields|
-    = field_set_tag t("tienda.settings.#{group}") do
-      - fields.each do |f|
-        %dl.sided
-          %dt= settings_label f
-          %dd
-            = settings_field f
-            - if v = t("tienda.settings.help")[f]
-              %p.help= v
+      - Tienda.settings_groups.each do |group, fields|
+        = field_set_tag t("tienda.settings.#{group}") do
+          - fields.each do |f|
+            .form-group
+              = settings_label f, 'control-label col-md-3'
+              .col-md-9
+                = settings_field f, class: 'form-control'
+                - if v = t("tienda.settings.help")[f]
+                  %span.help-block= v
 
-  %p.submit.sided
-    = submit_tag t("tienda.settings.save_settings"), :class => 'button green'
+      %p.submit.sided
+        = submit_tag t("tienda.settings.save_settings"), class: 'btn btn-primary'

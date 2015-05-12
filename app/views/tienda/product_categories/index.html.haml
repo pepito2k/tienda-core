@@ -1,19 +1,29 @@
 - @page_title = t('tienda.product_category.product_categories')
 
-= content_for :header do
-  %p.buttons=link_to t('tienda.product_category.new_category'), :new_product_category, :class => 'button green'
-  %h2.products= t('tienda.product_category.product_categories')
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.product_category.product_categories')
+      %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.product_category.new_category'), :new_product_category, class: 'btn btn-primary'
 
-.table
-  %table.data
-    %thead
-      %tr
-        %th= t('tienda.product_category.name')
-    %tbody
-      - if @product_categories.empty?
-        %tr.empty
-          %td= t('tienda.product_category.no_categories')
-      - else
-        - for cat in @product_categories
-          %tr
-            %td= link_to cat.name, [:edit, cat]
+.panel.panel-default
+  .panel-heading
+    Listing product categories
+  .panel-body
+    %table.table.table-hover
+      %thead
+        %tr
+          %th= t('tienda.product_category.name')
+      %tbody
+        - if @product_categories.empty?
+          %tr.empty
+            %td= t('tienda.product_category.no_categories')
+        - else
+          - for cat in @product_categories
+            %tr
+              %td= link_to cat.name, [:edit, cat]

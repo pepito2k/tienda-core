@@ -15,7 +15,7 @@ require 'nifty/dialog'
 module Tienda
   class << self
 
-    # The path to the root of the Tienda applicatinio
+    # The path to the root of the Tienda application
     #
     # @return [String]
     def root

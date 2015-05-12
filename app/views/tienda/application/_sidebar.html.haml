@@ -1,0 +1,6 @@
+%nav.navbar-default.navbar-side{:role => "navigation"}
+  .sidebar-collapse
+    %ul#main-menu.nav
+      - for item in Tienda::NavigationManager.find(:admin_primary).items
+        %li= navigation_manager_link item
+/ /. NAV SIDE

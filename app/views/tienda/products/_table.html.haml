@@ -1,42 +1,40 @@
-.table
-  %table.data
-    %thead
-      %tr
-        %th{:width => '20%'}= t('tienda.products.sku')
-        %th{:width => '40%'}= t('tienda.products.name')
-        %th{:width => '25%'}= t('tienda.products.price_variants')
-        %th{:width => '15%'}= t('tienda.products.stock')
-    %tbody
-      - if products.empty?
-        %tr.empty
-          %td{:colspan => 4}= t('tienda.products.no_products')
-      - else
-        - for category, products in products
+%table.table.table-hover
+  %thead
+    %tr
+      %th{width: '20%'}= t('tienda.products.sku')
+      %th{width: '40%'}= t('tienda.products.name')
+      %th{width: '25%'}= t('tienda.products.price_variants')
+      %th{width: '15%'}= t('tienda.products.stock')
+  %tbody
+    - if products.empty?
+      %tr.empty
+        %td{colspan: 4}= t('tienda.products.no_products')
+    - else
+      - for category, products in products
+        %tr
+          %th.info{colspan: 4}= category.name
+        - for product in products
           %tr
-            %th{:colspan => 4}= category.name
-          - for product in products
-            %tr
-              %td= product.sku
-              %td= link_to product.name, [:edit, product]
-              - if product.has_variants?
-                %td.table{:colspan => 2}
-                  %table.data
-                    - for variant in product.variants
-                      %tr
-                        %td{:width => '40%'}= link_to variant.name, edit_product_variant_path(product, variant)
-                        %td{:width => '30%'}= number_to_currency variant.price
-                        %td{:width => '30%'}
-                          - if variant.stock_control?
-                            %span.float-right= link_to t('tienda.products.edit') , stock_level_adjustments_path(:item_type => variant.class, :item_id => variant.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'}
-                            = boolean_tag(variant.in_stock?, nil, :true_text => variant.stock, :false_text => t('tienda.products.no_stock'))
-                          - else
-                            &#8734;
-              - else
-                %td= number_to_currency product.price
-                %td
-                  - if product.stock_control?
-                    %span.float-right= link_to t('tienda.products.edit'), stock_level_adjustments_path(:item_type => product.class, :item_id => product.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'}
-                    = boolean_tag(product.in_stock?, nil, :true_text => product.stock, :false_text => t('tienda.products.no_stock'))
-                  - else
-                    &#8734;
-
+            %td= product.sku
+            %td= link_to product.name, [:edit, product]
+            - if product.has_variants?
+              %td.table{colspan: 2}
+                %table.data
+                  - for variant in product.variants
+                    %tr
+                      %td{width: '40%'}= link_to variant.name, edit_product_variant_path(product, variant)
+                      %td{width: '30%'}= number_to_currency variant.price
+                      %td{width: '30%'}
+                        - if variant.stock_control?
+                          %span.float-right= link_to t('tienda.products.edit') , stock_level_adjustments_path(item_type: variant.class, item_id: variant.id), class: 'edit', rel: 'dialog', data: {dialog_width: 700, dialog_behavior: 'stockLevelAdjustments'}
+                          = boolean_tag(variant.in_stock?, nil, true_text: variant.stock, false_text: t('tienda.products.no_stock'))
+                        - else
+                          &#8734;
+            - else
+              %td= number_to_currency product.price
+              %td
+                - if product.stock_control?
+                  %span.float-right= link_to t('tienda.products.edit'), stock_level_adjustments_path(item_type: product.class, item_id: product.id), class: 'edit', rel: 'dialog', data: {dialog_width: 700, dialog_behavior: 'stockLevelAdjustments'}
+                  = boolean_tag(product.in_stock?, nil, true_text: product.stock, false_text: t('tienda.products.no_stock'))
+                - else
+                  &#8734;

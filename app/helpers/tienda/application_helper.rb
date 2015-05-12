@@ -2,7 +2,7 @@ module Tienda
   module ApplicationHelper
 
     def navigation_manager_link(item)
-      link_to item.description, item.url(self), item.link_options.merge(:class => item.active?(self) ? 'active' : 'inactive')
+      link_to item.description, item.url(self), item.link_options.merge(:class => item.active?(self) ? 'active-menu' : 'inactive')
     end
 
     def status_tag(status)
@@ -32,8 +32,8 @@ module Tienda
       end
     end
 
-    def settings_label(field)
-      "<label for='settings_#{field}'>#{t("tienda.settings.labels.#{field}")}</label>".html_safe
+    def settings_label(field, html_class)
+      "<label for='settings_#{field}' class='#{html_class}'>#{t("tienda.settings.labels.#{field}")}</label>".html_safe
     end
 
     def settings_field(field, options = {})
@@ -52,7 +52,7 @@ module Tienda
           s << "</div>"
         end.html_safe
       else
-        text_field_tag "settings[#{field}]", value, options.merge(:placeholder => default, :class => 'text')
+        text_field_tag "settings[#{field}]", value, options.merge(:placeholder => default, :class => options[:class])
       end
     end
 

@@ -9,6 +9,7 @@ require 'tienda/navigation_manager'
 # This is the default navigation manager for the admin interface.
 #
 Tienda::NavigationManager.build(:admin_primary) do
+  add_item :root
   add_item :orders
   add_item :products
   add_item :product_categories
