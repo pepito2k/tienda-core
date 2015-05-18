@@ -5,7 +5,11 @@ module Tienda
     before_filter { params[:id] && @product = Tienda::Product.root.find(params[:id]) }
 
     def index
-      @products = Tienda::Product.root.includes(:stock_level_adjustments, :default_image, :product_category, :variants).order(:name).group_by(&:product_category).sort_by { |cat,pro| cat.name }
+      if params[:filter].blank?
+        @products = Tienda::Product.root.includes(:stock_level_adjustments, :default_image, :product_category, :variants).order(:name).group_by(&:product_category).sort_by { |cat, pro| cat.name }
+      else
+        @products = Tienda::Product.root.send(params[:filter]).includes(:stock_level_adjustments, :default_image, :product_category, :variants).order(:name).group_by(&:product_category).sort_by { |cat, pro| cat.name }
+      end
     end
 
     def new
@@ -17,7 +21,7 @@ module Tienda
       if @product.save
         redirect_to :products, flash: { notice: t('tienda.products.create_notice') }
       else
-        render action: "new"
+        render :new
       end
     end
 
@@ -28,7 +32,7 @@ module Tienda
       if @product.update(safe_params)
         redirect_to [:edit, @product], flash: { notice: t('tienda.products.update_notice') }
       else
-        render action: "edit"
+        render :edit
       end
     end
 

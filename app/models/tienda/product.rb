@@ -3,8 +3,6 @@ require 'roo'
 module Tienda
   class Product < ActiveRecord::Base
 
-    self.table_name = 'tienda_products'
-
     # Add dependencies for products
     require_dependency 'tienda/product/product_attributes'
     require_dependency 'tienda/product/variants'
@@ -34,7 +32,7 @@ module Tienda
     has_many :orders, through: :order_items, class_name: 'Tienda::Order'
 
     # Stock level adjustments for this product
-    has_many :stock_level_adjustments, dependent: :destroy, class_name: 'Tienda::StockLevelAdjustment', as: :item
+    has_many :stock_level_adjustments, dependent: :destroy
 
     # Validations
     with_options if: Proc.new { |p| p.parent.nil? } do |product|
@@ -54,6 +52,15 @@ module Tienda
 
     # All active products
     scope :active, -> { where(active: true) }
+
+    # All inactive products
+    scope :inactive, -> { where(active: false) }
+
+    # All in stock products
+    scope :in_stock, -> { where('stock_count > 0') }
+
+    # All not in stock products
+    scope :no_stock, -> { where(stock_count: 0) }
 
     # All featured products
     scope :featured, -> { where(featured: true) }
@@ -88,14 +95,7 @@ module Tienda
     #
     # @return [Boolean]
     def in_stock?
-      self.default_variant ? self.default_variant.in_stock? : (stock_control? ? stock > 0 : true)
-    end
-
-    # Return the total number of items currently in stock
-    #
-    # @return [Fixnum]
-    def stock
-      self.stock_level_adjustments.sum(:adjustment)
+      self.default_variant ? self.default_variant.in_stock? : (stock_control? ? stock_count > 0 : true)
     end
 
     # Return all product images

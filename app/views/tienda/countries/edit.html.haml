@@ -1,6 +1,15 @@
 - @page_title = t('tienda.countries.countries')
 
-= content_for :header do
-  %p.pull-right= link_to t('tienda.countries.back'), :countries, class: 'btn btn-default'
-  %h2.countries= t('tienda.countries.countries')
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.countries.countries')
+      -# %small Lorem ipsum dolor
+/ /. ROW
+
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.countries.back'), :countries, class: 'btn btn-default'
+
 = render 'form'

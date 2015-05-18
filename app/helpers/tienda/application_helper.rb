@@ -1,6 +1,10 @@
 module Tienda
   module ApplicationHelper
 
+    def body_class
+      "#{params[:controller].gsub('/', '_')}_#{params[:action]}"
+    end
+
     def navigation_manager_link(item)
       link_to item.description, item.url(self), item.link_options.merge(:class => item.active?(self) ? 'active-menu' : 'inactive')
     end

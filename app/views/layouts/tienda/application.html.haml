@@ -20,7 +20,7 @@
     :javascript
       window.Tienda = {}
       window.Tienda.currencyUnit = "#{h Tienda.settings.currency_unit}";
-  %body
+  %body{class: body_class}
     #wrapper
       = render 'navbar'
 
@@ -32,7 +32,9 @@
 
           %footer
             %p
-              All right reserved. Template by:
+              Powered by Tienda Gem by:
+              %a{:href => "http://gonzalo.robaina.me"} Gonzalo Robaina
+              | Template by:
               %a{:href => "http://webthemez.com"} WebThemez
 
   %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"}

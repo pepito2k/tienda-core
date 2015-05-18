@@ -1,39 +1,41 @@
 = form_for @country, html: {class: 'form-horizontal'} do |f|
   = f.error_messages
-  = field_set_tag t('tienda.countries.country_details') do
-    .form-group
-      = f.label :name, t('tienda.countries.name'), class: 'control-label col-md-3'
-      .col-md-9
-        = f.text_field :name, class: 'focus form-control'
-    .form-group
-      = f.label :continent, t('tienda.countries.continent'), class: 'control-label col-md-3'
-      .col-md-9
-        = f.text_field :continent, class: 'form-control'
-    .form-group
-      = f.label :code2, t('tienda.countries.iso_alpha_2'), class: 'control-label col-md-3'
-      .col-md-9
-        = f.text_field :code2, class: 'form-control'
-    .form-group
-      = f.label :tld, t('tienda.countries.tld'), class: 'control-label col-md-3'
-      .col-md-9
-        = f.text_field :tld, class: 'form-control'
-    .form-group
-      = f.label :code3, t('tienda.countries.iso_alpha_3'), class: 'control-label col-md-3'
-      .col-md-9
-        = f.text_field :code3, class: 'form-control'
-    .form-group
-      = f.label :eu_member, t('tienda.countries.eu_member'), class: 'control-label col-md-3'
-      .col-md-9
-        .checkbox
-          %label
-            = f.check_box :eu_member
-            = t('tienda.countries.is_eu_member')
-
-    .form-group
-      .col-md-9.col-md-offset-3
-        - unless @country.new_record?
-          .pull-right
-            = link_to t('tienda.delete'), @country, class: 'btn btn-warning',
-              method: :delete, data: {confirm: t('tienda.countries.delete_confirmation')}
-        = f.submit t('tienda.submit'), class: 'btn btn-primary'
-        = link_to t('tienda.cancel'), :countries, class: 'btn btn-default'
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.countries.country_details')
+    .panel-body
+      .form-group
+        = f.label :name, t('tienda.countries.name'), class: 'control-label col-md-3'
+        .col-md-9
+          = f.text_field :name, class: 'focus form-control'
+      .form-group
+        = f.label :continent, t('tienda.countries.continent'), class: 'control-label col-md-3'
+        .col-md-9
+          = f.text_field :continent, class: 'form-control'
+      .form-group
+        = f.label :code2, t('tienda.countries.iso_alpha_2'), class: 'control-label col-md-3'
+        .col-md-9
+          = f.text_field :code2, class: 'form-control'
+      .form-group
+        = f.label :tld, t('tienda.countries.tld'), class: 'control-label col-md-3'
+        .col-md-9
+          = f.text_field :tld, class: 'form-control'
+      .form-group
+        = f.label :code3, t('tienda.countries.iso_alpha_3'), class: 'control-label col-md-3'
+        .col-md-9
+          = f.text_field :code3, class: 'form-control'
+      .form-group
+        = f.label :eu_member, t('tienda.countries.eu_member'), class: 'control-label col-md-3'
+        .col-md-9
+          .checkbox
+            %label
+              = f.check_box :eu_member
+              = t('tienda.countries.is_eu_member')
+      .form-group
+        .col-md-9.col-md-offset-3
+          - unless @country.new_record?
+            .pull-right
+              = link_to t('tienda.delete'), @country, class: 'btn btn-danger',
+                method: :delete, data: {confirm: t('tienda.countries.delete_confirmation')}
+          = f.submit t('tienda.submit'), class: 'btn btn-primary'
+          = link_to t('tienda.cancel'), :countries, class: 'btn btn-default'

@@ -1,27 +1,39 @@
 = form_for @user do |f|
   = f.error_messages
-  = field_set_tag t('tienda.users.user_details') do
-    .splitContainer
-      %dl.half
-        %dt= f.label :first_name, t('tienda.users.first_name')
-        %dd= f.text_field :first_name, :class => 'focus text'
-      %dl.half
-        %dt= f.label :last_name, t('tienda.users.last_name')
-        %dd= f.text_field :last_name, :class => 'text'
-  = field_set_tag t("tienda.users.login") do
-    .splitContainer
-      %dl.third
-        %dt= f.label :email_address, t('tienda.users.email')
-        %dd= f.text_field :email_address, :class => 'text'
-      %dl.third
-        %dt= f.label :password, t('tienda.users.password')
-        %dd= f.password_field :password, :class => 'text'
-      %dl.third
-        %dt= f.label :password_confirmation, t('tienda.users.password_confirmation')
-        %dd= f.password_field :password_confirmation, :class => 'text'
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.users.user_details')
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            = f.label :first_name, t('tienda.users.first_name')
+            = f.text_field :first_name, class: 'focus form-control'
+        .col-md-6
+          .form-group
+            = f.label :last_name, t('tienda.users.last_name')
+            = f.text_field :last_name, class: 'form-control'
+  .panel.panel-default
+    .panel-heading
+      = t("tienda.users.login")
+    .panel-body
+      .row
+        .col-md-4
+          .form-group
+            = f.label :email_address, t('tienda.users.email')
+            = f.text_field :email_address, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :password, t('tienda.users.password')
+            = f.password_field :password, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :password_confirmation, t('tienda.users.password_confirmation')
+            = f.password_field :password_confirmation, class: 'form-control'
 
-  %p.submit
-    - unless @user.new_record?
-      %span.right= link_to t('tienda.delete'), @user, :class => 'button purple', :method => :delete, :data => {:confirm => t('tienda.users.delete_confirmation')}
-    = f.submit  t('tienda.submit'), :class => 'button green'
-    = link_to t('tienda.cancel'), :users, :class => 'button'
+  .panel.panel-default
+    .panel-body
+      - unless @user.new_record?
+        %span.pull-right= link_to t('tienda.delete'), @user, class: 'btn btn-danger', method: :delete, data: {confirm: t('tienda.users.delete_confirmation')}
+      = f.submit  t('tienda.submit'), class: 'btn btn-primary'
+      = link_to t('tienda.cancel'), :users, class: 'btn btn-default'

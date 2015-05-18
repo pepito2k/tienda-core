@@ -1,41 +1,56 @@
 = form_for @product, :html => {:multipart => true} do |f|
   = f.error_messages
-  = field_set_tag  t('tienda.products.product_information') do
-    %dl
-      %dt= f.label :product_category_id, t('tienda.products.product_category')
-      %dd= f.collection_select :product_category_id, Tienda::ProductCategory.ordered, :id, :name, {:prompt => false}, {:class => 'chosen'}
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.products.product_information')
+    .panel-body
+      .row
+        .col-md-12
+          .form-group
+            = f.label :product_category_id, t('tienda.products.product_category')
+            = f.collection_select :product_category_id, Tienda::ProductCategory.ordered, :id, :name, {prompt: false}, {class: 'form-control'}
+      .row
+        .col-md-4
+          .form-group
+            = f.label :name, t('tienda.products.name')
+            = f.text_field :name, class: 'form-control focus'
+        .col-md-4
+          .form-group
+            = f.label :permalink, t('tienda.products.permalink')
+            = f.text_field :permalink, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :sku, t('tienda.products.sku')
+            = f.text_field :sku, class: 'form-control'
+      .row
+        .col-md-12
+          .form-group
+            = f.label :description, t('tienda.products.description')
+            = f.text_area :description, class: 'form-control'
+      .row
+        .col-md-12
+          .form-group
+            = f.label :short_description, t('tienda.products.short_description')
+            = f.text_area :short_description, class: 'form-control'
+      .row
+        .col-md-12
+          .form-group
+            = f.label :in_the_box, t('tienda.products.in_the_box')
+            = f.text_area :in_the_box, class: 'form-control'
 
-    .splitContainer
-      %dl.third
-        %dt= f.label :name, t('tienda.products.name')
-        %dd= f.text_field :name, :class => 'text focus'
-      %dl.third
-        %dt= f.label :permalink, t('tienda.products.permalink')
-        %dd= f.text_field :permalink, :class => 'text'
-      %dl.third
-        %dt= f.label :sku, t('tienda.products.sku')
-        %dd= f.text_field :sku, :class => 'text'
-    %dl
-      %dt= f.label :description, t('tienda.products.description')
-      %dd= f.text_area :description, :class => 'text'
-    %dl
-      %dt= f.label :short_description, t('tienda.products.short_description')
-      %dd= f.text_area :short_description, :class => 'text'
-    %dl
-      %dt= f.label :in_the_box, t('tienda.products.in_the_box')
-      %dd= f.text_area :in_the_box, :class => 'text'
-
-  = field_set_tag t('tienda.products.attributes') do
-    .margin
-      %table.productAttributes
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.products.attributes')
+    .panel-body
+      %table.productAttributes.table.table-hover
         %thead
           %tr
-            %td= t('tienda.products.name')
-            %td= t('tienda.products.value')
-            %td.searchable= t('tienda.products.searchable?')
-            %td.searchable= t('tienda.products.public?')
-            %td.remove= t('tienda.products.remove')
-            %td
+            %th= t('tienda.products.name')
+            %th= t('tienda.products.value')
+            %th.searchable= t('tienda.products.searchable?')
+            %th.searchable= t('tienda.products.public?')
+            %th.remove= t('tienda.products.remove')
+            %th
         %tbody
           %tr.template{:style => 'display:none;'}
             %td= text_field_tag 'product[product_attributes_array][][key]', '', :placeholder => t('tienda.products.name')
@@ -52,95 +67,117 @@
               %td.searchable= check_box_tag 'product[product_attributes_array][][public]', '1', attribute.public?
               %td.remove= link_to t("tienda.remove"), '#', :class => 'button button-mini purple'
               %td.handle
-      %p.addAttribute= link_to t('tienda.products.add_attribute') , '#', :data => {:behavior => 'addAttributeToAttributesTable'}, :class => 'button button-mini green'
+      %p.addAttribute= link_to t('tienda.products.add_attribute') , '#', data: {behavior: 'addAttributeToAttributesTable'}, class: 'btn btn-default btn-sm'
 
-  = field_set_tag t('tienda.products.attachments') do
-    .splitContainer
-      %dl.half
-        %dt
-          = f.label :default_image_file, t('tienda.products.default_image')
-          %p= f.file_field :default_image_file
-        %dd
-          = attachment_preview @product.default_image
-      %dl.half
-        %dt
-          = f.label :second_image_file, t('tienda.products.second_image')
-          %p= f.file_field :second_image_file
-        %dd
-          = attachment_preview @product.second_image
-    .splitContainer
-      %dl.half
-        %dt
-          = f.label :third_image_file, t('tienda.products.third_image')
-          %p= f.file_field :third_image_file
-        %dd
-          = attachment_preview @product.third_image
-      %dl.half
-        %dt
-          = f.label :fourth_image_file, t('tienda.products.fourth_image')
-          %p= f.file_field :fourth_image_file
-        %dd
-          = attachment_preview @product.fourth_image
-    .splitContainer
-      %dl.half
-        %dt
-          = f.label :fifth_image_file, t('tienda.products.fifth_image')
-          %p= f.file_field :fifth_image_file
-        %dd
-          = attachment_preview @product.fifth_image
-      %dl.half
-        %dt
-          = f.label :data_sheet_file, t('tienda.products.datasheet')
-          %p= f.file_field :data_sheet_file
-        %dd
-          = attachment_preview @product.data_sheet
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.products.attachments')
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            = f.label :default_image_file, t('tienda.products.default_image')
+            %p= f.file_field :default_image_file, class: 'form-control'
+          %div
+            = attachment_preview @product.default_image
+        .col-md-6
+          .form-group
+            = f.label :second_image_file, t('tienda.products.second_image')
+            %p= f.file_field :second_image_file, class: 'form-control'
+          %div
+            = attachment_preview @product.second_image
+      .row
+        .col-md-6
+          .form-group
+            = f.label :third_image_file, t('tienda.products.third_image')
+            %p= f.file_field :third_image_file, class: 'form-control'
+          %div
+            = attachment_preview @product.third_image
+        .col-md-6
+          .form-group
+            = f.label :fourth_image_file, t('tienda.products.fourth_image')
+            %p= f.file_field :fourth_image_file, class: 'form-control'
+          %div
+            = attachment_preview @product.fourth_image
+      .row
+        .col-md-6
+          .form-group
+            = f.label :fifth_image_file, t('tienda.products.fifth_image')
+            %p= f.file_field :fifth_image_file, class: 'form-control'
+          %div
+            = attachment_preview @product.fifth_image
+        .col-md-6
+          .form-group
+            = f.label :data_sheet_file, t('tienda.products.datasheet')
+            %p= f.file_field :data_sheet_file, class: 'form-control'
+          %div
+            = attachment_preview @product.data_sheet
 
-  - unless @product.has_variants?
-    = field_set_tag t('tienda.products.pricing') do
-      .splitContainer
-        %dl.third
-          %dt= f.label :price, t('tienda.products.price')
-          %dd
-            .moneyInput
-              .currency= Tienda.settings.currency_unit.html_safe
-              = f.text_field :price, :class => 'text'
-        %dl.third
-          %dt= f.label :cost_price, t('tienda.products.cost_price')
-          %dd
-            .moneyInput
-              .currency= Tienda.settings.currency_unit.html_safe
-              = f.text_field :cost_price, :class => 'text'
-        %dl.third
-          %dt= f.label :tax_rate_id, t('tienda.products.tax_rate')
-          %dd= f.collection_select :tax_rate_id, Tienda::TaxRate.ordered, :id, :description, {:include_blank => true}, {:class => 'chosen-with-deselect', :data => {:placeholder => t('tienda.products.no_tax')}}
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.products.pricing')
+    .panel-body
+      - unless @product.has_variants?
+        .row
+          .col-md-4
+            .form-group
+              = f.label :price, t('tienda.products.price')
+              .form-group.input-group
+                %span.input-group-addon= Tienda.settings.currency_unit.html_safe
+                = f.text_field :price, class: 'form-control'
 
-    = field_set_tag  t('tienda.products.stock_control') do
-      .splitContainer
-        %dl.half
-          %dt= f.label :weight, t('tienda.products.weight')
-          %dd= f.text_field :weight, :class => 'text'
+          .col-md-4
+            .form-group
+              = f.label :cost_price, t('tienda.products.cost_price')
+              .form-group.input-group
+                %span.input-group-addon= Tienda.settings.currency_unit.html_safe
+                = f.text_field :cost_price, class: 'form-control'
+          .col-md-4
+            .form-group
+              = f.label :tax_rate_id, t('tienda.products.tax_rate')
+              = f.collection_select :tax_rate_id, Tienda::TaxRate.ordered, :id, :description, {include_blank: true}, {class: 'form-control', data: {placeholder: t('tienda.products.no_tax')}}
 
-        %dl.half
-          %dt= f.label :stock_control,  t('tienda.products.stock_control')
-          %dd.checkbox
-            = f.check_box :stock_control
-            = f.label :stock_control, t('tienda.products.enable_stock_control?')
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.products.stock_control')
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            = f.label :weight, t('tienda.products.weight')
+            = f.text_field :weight, class: 'form-control'
 
-  = field_set_tag  t('tienda.products.website_properties') do
-    .splitContainer
-      %dl.half
-        %dt= f.label :active,  t('tienda.products.on_sale?')
-        %dd.checkbox
-          = f.check_box :active
-          = f.label :active,  t('tienda.products.on_sale_info')
-      %dl.half
-        %dt= f.label :featured,  t('tienda.products.featured?')
-        %dd.checkbox
-          = f.check_box :featured
-          = f.label :featured, t('tienda.products.featured_info')
+        .col-md-6
+          .form-group
+            = f.label :stock_control,  t('tienda.products.stock_control')
+            .checkbox
+              %label
+                = f.check_box :stock_control
+                = t('tienda.products.enable_stock_control?')
 
-  %p.submit
-    - unless @product.new_record?
-      %span.right= link_to t('tienda.delete') , @product, :class => 'button purple', :method => :delete, :data => {:confirm => "Are you sure you wish to remove this product?"}
-    = f.submit t('tienda.submit'),  :class => 'button green'
-    = link_to t('tienda.cancel'), :products, :class => 'button'
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.products.website_properties')
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            = f.label :active,  t('tienda.products.on_sale?')
+            .checkbox
+              %label
+                = f.check_box :active
+                = t('tienda.products.on_sale_info')
+        .col-md-6
+          .form-group
+            = f.label :featured,  t('tienda.products.featured?')
+            .checkbox
+              %label
+                = f.check_box :featured
+                =t('tienda.products.featured_info')
+
+  .panel.panel-default
+    .panel-body
+      - unless @product.new_record?
+        %span.pull-right= link_to t('tienda.delete') , @product, class: 'btn btn-danger', method: :delete, data: {confirm: "Are you sure you wish to remove this product?"}
+      = f.submit t('tienda.submit'),  class: 'btn btn-primary'
+      = link_to t('tienda.cancel'), :products, class: 'btn btn-default'

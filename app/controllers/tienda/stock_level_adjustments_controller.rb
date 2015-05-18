@@ -1,11 +1,7 @@
 module Tienda
   class StockLevelAdjustmentsController < ApplicationController
 
-    SUITABLE_OBJECTS = ['Tienda::Product']
-    before_filter do
-      raise Tienda::Error, t('tienda.stock_level_adjustments.invalid_item_type', suitable_objects:  SUITABLE_OBJECTS.to_sentence) unless SUITABLE_OBJECTS.include?(params[:item_type])
-      @item = params[:item_type].constantize.find(params[:item_id].to_i)
-    end
+    before_filter { @item = Tienda::Product.find(params[:item_id].to_i) }
     before_filter { params[:id] && @sla = @item.stock_level_adjustments.find(params[:id].to_i) }
 
     def index

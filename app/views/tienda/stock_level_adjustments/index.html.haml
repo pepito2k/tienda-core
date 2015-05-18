@@ -1,40 +1,39 @@
-- @page_title = t('tienda.stock_level_adjustments.stock_levels_title', item_name: @item.name)
+.modal-header
+  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+  %h4.modal-title= t('tienda.stock_level_adjustments.stock_levels_for', item_name: @item.name)
+.modal-body
+  .table
+    .alert.alert-info
+      = t('tienda.stock_level_adjustments.current_stock_level_html', item_stock: @item.stock_count).html_safe
+      %span.float-right= page_entries_info @stock_level_adjustments
 
-= content_for :header do
-  %p.buttons
-    - case @item
-    - when Tienda::Product
-      - @active_nav = :products
-      = link_to t('tienda.stock_level_adjustments.edit_product'), [:edit, @item], :class => 'button'
-      = link_to t('tienda.stock_level_adjustments.back_to_product'), :products, :class => 'button'
+    .alert.alert-danger.hidden
+      Probando
 
-  %h2.products= t('tienda.stock_level_adjustments.stock_levels_for', item_name: @item.name)
-
-.table
-  %p.info
-    = t('tienda.stock_level_adjustments.current_stock_level_html', item_stock: @item.stock).html_safe
-    %span.float-right= page_entries_info @stock_level_adjustments
-
-  = form_for @new_sla do |f|
-    = hidden_field_tag 'item_type', params[:item_type]
-    = hidden_field_tag 'item_id', params[:item_id]
-    %table.data
-      %thead
-        %tr
-          %th{:width => '25%'}= t('tienda.stock_level_adjustments.date')
-          %th{:width => '50%'}= t('tienda.stock_level_adjustments.description')
-          %th{:width => '25%'}= t('tienda.stock_level_adjustments.adjustment')
-      %tbody
-        %tr.form
-          %td
-          %td.desc= f.text_field :description
-          %td.adjustment
-            = f.text_field :adjustment
-            = f.submit t('tienda.stock_level_adjustments.add'), :class => 'button button-mini green'
-        - for sla in @stock_level_adjustments
+    = form_for @new_sla, remote: request.xhr? do |f|
+      = hidden_field_tag 'item_id', params[:item_id]
+      %table.table.table-hover
+        %thead
           %tr
-            %td= l(sla.created_at, format: :long)
-            %td= sla.description
-            %td= sla.adjustment > 0  ? "+#{sla.adjustment}" : sla.adjustment
+            %th{:width => '25%'}= t('tienda.stock_level_adjustments.date')
+            %th{:width => '50%'}= t('tienda.stock_level_adjustments.description')
+            %th{:width => '25%'}= t('tienda.stock_level_adjustments.adjustment')
+        %tbody
+          %tr.form
+            %td
+            %td.desc= f.text_field :description, class: 'form-control'
+            %td.adjustment
+              .form-group.input-group
+                = f.text_field :adjustment, class: 'form-control'
+                %span.input-group-btn
+                  = f.submit t('tienda.stock_level_adjustments.add'), class: 'btn btn-success'
 
-    = paginate @stock_level_adjustments
+          - for sla in @stock_level_adjustments
+            %tr
+              %td= l(sla.created_at, format: :long)
+              %td= sla.description
+              %td= sla.adjustment > 0  ? "+#{sla.adjustment}" : sla.adjustment
+
+      = paginate @stock_level_adjustments
+.modal-footer
+  %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close

@@ -26,15 +26,26 @@
                       %td{width: '30%'}= number_to_currency variant.price
                       %td{width: '30%'}
                         - if variant.stock_control?
-                          %span.float-right= link_to t('tienda.products.edit') , stock_level_adjustments_path(item_type: variant.class, item_id: variant.id), class: 'edit', rel: 'dialog', data: {dialog_width: 700, dialog_behavior: 'stockLevelAdjustments'}
-                          = boolean_tag(variant.in_stock?, nil, true_text: variant.stock, false_text: t('tienda.products.no_stock'))
+                          %span.float-right= link_to t('tienda.products.edit') , stock_level_adjustments_path(item_type: variant.class, item_id: variant.id), class: 'btn btn-default btn-sm', rel: 'dialog', data: {toggle: 'modal', target: '#stockModal'}
+                          %span.label{class: "#{variant.in_stock? ? 'label-default' : 'label-danger'}"}
+                            = boolean_tag(variant.in_stock?, nil, true_text: variant.stock, false_text: t('tienda.products.no_stock'))
                         - else
                           &#8734;
-            - else
+            - else # Product has not variants
               %td= number_to_currency product.price
               %td
                 - if product.stock_control?
-                  %span.float-right= link_to t('tienda.products.edit'), stock_level_adjustments_path(item_type: product.class, item_id: product.id), class: 'edit', rel: 'dialog', data: {dialog_width: 700, dialog_behavior: 'stockLevelAdjustments'}
-                  = boolean_tag(product.in_stock?, nil, true_text: product.stock, false_text: t('tienda.products.no_stock'))
+                  %span.float-right= link_to t('tienda.products.edit'), stock_level_adjustments_path(item_type: product.class, item_id: product.id), class: 'btn btn-default btn-sm', rel: 'dialog', data: {toggle: 'modal', target: '#stockModal'}
+                  %span.label{class: "#{product.in_stock? ? 'label-default' : 'label-danger'}"}
+                    = boolean_tag(product.in_stock?, nil, true_text: product.stock_count, false_text: t('tienda.products.no_stock'))
                 - else
                   &#8734;
+
+/ Modal
+#stockModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+
+    / /.modal-content
+  / /.modal-dialog
+/ /.modal

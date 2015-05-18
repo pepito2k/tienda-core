@@ -36,7 +36,7 @@ Tienda::Engine.routes.draw do
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   match 'login/reset' => 'sessions#reset', via: [:get, :post]
-
   delete 'logout' => 'sessions#destroy'
+  
   root to: 'dashboard#home'
 end

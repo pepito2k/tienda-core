@@ -4,14 +4,32 @@
   .col-md-12
     %h1.page-header
       = t('tienda.products.products')
-      %small Lorem ipsum dolor
+      -# %small Lorem ipsum dolor
 / /. ROW
 .row
   .col-md-12
-    %p.pull-right
+    .pull-left
+      .btn-group
+        %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown"}
+          = "Filter#{': ' + params[:filter].humanize unless params[:filter].blank?}"
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            %a{href: products_path(filter: :active)} Active
+          %li
+            %a{href: products_path(filter: :inactive)} Inactive
+          %li.divider
+          %li
+            %a{href: products_path(filter: :in_stock)} In stock
+          %li
+            %a{href: products_path(filter: :no_stock)} Not in stock
+          %li.divider
+          %li
+            %a{href: products_path} All products
+    .pull-right
       = link_to t('tienda.products.new_product'), :new_product, class: 'btn btn-primary'
       = link_to t('tienda.products.import_products'), :import_products, class: 'btn btn-default'
-
+%br
 .panel.panel-default
   .panel-heading
     Listing products
