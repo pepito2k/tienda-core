@@ -5,6 +5,7 @@ introduce a catalogue-based store into your Rails 4 applications.
 
 ![GemVersion](https://badge.fury.io/rb/tienda.png)
 [![Code Climate](https://codeclimate.com/github/pepito2k/tienda-core/badges/gpa.svg)](https://codeclimate.com/github/pepito2k/tienda-core)
+[![Test Coverage](https://codeclimate.com/github/pepito2k/tienda-core/badges/coverage.svg)](https://codeclimate.com/github/pepito2k/tienda-core/coverage)
 [![Build Status](https://travis-ci.org/pepito2k/tienda-core.svg)](https://travis-ci.org/pepito2k/tienda-core)
 
 * [Read the release notes](https://github.com/pepito2k/tienda-core/blob/master/CHANGELOG.md)
