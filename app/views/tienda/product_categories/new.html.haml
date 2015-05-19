@@ -1,6 +1,14 @@
 - @page_title = t('tienda.product_category.product_categories')
-= content_for :header do
-  %p.buttons= link_to t('tienda.product_category.back_to_categories'), :product_categories, :class => 'button'
-  %h2.products= t('tienda.product_category.product_categories')
+
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.product_category.product_categories')
+      -# %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.product_category.back_to_categories'), :product_categories, class: 'btn btn-primary'
 
 = render 'form'
