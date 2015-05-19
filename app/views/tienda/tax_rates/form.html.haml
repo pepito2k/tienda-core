@@ -1,28 +1,44 @@
 - @page_title = t('tienda.tax_rates.tax_rates')
-= content_for :header do
-  %p.buttons= link_to t('tienda.tax_rates.back_to_tax_rates'), :tax_rates, :class => 'button grey'
-  %h2.tax_rates= t('tienda.tax_rates.tax_rates')
 
-= form_for @tax_rate do |f|
-  = f.error_messages
-  = field_set_tag t('tienda.tax_rates.rate_details') do
-    .splitContainer
-      %dl.half
-        %dt= f.label :name, t('tienda.tax_rates.name')
-        %dd= f.text_field :name, :class => 'focus text'
-      %dl.half
-        %dt= f.label :rate, t('tienda.tax_rates.rate')
-        %dd= f.text_field :rate, :class => 'text'
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.tax_rates.tax_rates')
+      -# %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.tax_rates.back_to_tax_rates'), :tax_rates, class: 'btn btn-default'
 
-  = field_set_tag t('tienda.tax_rates.country_restriction') do
-    %dl
-      %dd
-        = f.select :address_type, Tienda::TaxRate::ADDRESS_TYPES.map { |a| [t('tienda.tax_rates.address_type_option', address: t("tienda.tax_rates.#{a}")).html_safe, a]}, {}, :class => 'chosen-basic'
-    %dl
-      %dd
-        = f.collection_select :country_ids, Tienda::Country.ordered, :id, :name, {}, {:class => 'chosen', :multiple => true, :data => {:placeholder => t('tienda.tax_rates.all_countries') }}
-  %p.submit
-    - unless @tax_rate.new_record?
-      %span.right= link_to t('tienda.delete'), @tax_rate, :class => 'button purple', :method => :delete, :data => {:confirm => t('tienda.tax_rates.delete_confirmation') }
-    = f.submit t('tienda.submit'), :class => 'button green'
-    = link_to t('tienda.cancel'), :tax_rates, :class => 'button'
+.panel.panel-default
+  .panel-body
+    = form_for @tax_rate do |f|
+      = f.error_messages
+      = field_set_tag t('tienda.tax_rates.rate_details') do
+        .row
+          .col-md-6
+            .form-group
+              = f.label :name, t('tienda.tax_rates.name')
+              = f.text_field :name, class: 'focus form-control'
+          .col-md-6
+            .form-group
+              = f.label :rate, t('tienda.tax_rates.rate')
+              = f.text_field :rate, class: 'form-control'
+
+      = field_set_tag t('tienda.tax_rates.country_restriction') do
+        .row
+          .col-md-12
+            .form-group
+              = f.select :address_type, Tienda::TaxRate::ADDRESS_TYPES.map { |a| [t('tienda.tax_rates.address_type_option', address: t("tienda.tax_rates.#{a}")).html_safe, a]}, {}, class: 'form-control'
+        .row
+          .col-md-12
+            .form-group
+              = f.collection_select :country_ids, Tienda::Country.ordered, :id, :name, {}, {class: 'form-control', multiple: true, data: {placeholder: t('tienda.tax_rates.all_countries') }}
+      .row
+        .col-md-12
+          .form-group
+            - unless @tax_rate.new_record?
+              %span.pull-right= link_to t('tienda.delete'), @tax_rate, class: 'btn btn-danger', method: :delete, data: {confirm: t('tienda.tax_rates.delete_confirmation') }
+            = f.submit t('tienda.submit'), class: 'btn btn-primary'
+            = link_to t('tienda.cancel'), :tax_rates, class: 'btn btn-default'
