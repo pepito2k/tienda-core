@@ -18,8 +18,8 @@
             %td= product.sku
             %td= link_to product.name, [:edit, product]
             - if product.has_variants?
-              %td.table{colspan: 2}
-                %table.data
+              %td{colspan: 2}
+                %table.table.table-hover
                   - for variant in product.variants
                     %tr
                       %td{width: '40%'}= link_to variant.name, edit_product_variant_path(product, variant)

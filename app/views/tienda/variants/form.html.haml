@@ -1,66 +1,107 @@
 - @page_title = "#{t('tienda.variants.variants')} - #{@product.name}"
-= content_for :header do
-  %p.buttons= link_to t('tienda.variants.back_to_variants'), [@product, :variants], :class => 'button'
-  %h2.products= t('tienda.variants.variants_of', product:@product.name)
+
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.variants.variants_of', product:@product.name)
+      -# %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.variants.back_to_variants'), [@product, :variants], class: 'btn btn-default'
 
 = form_for [@product, @variant], :url => @variant.new_record? ? product_variants_path(@product) : product_variant_path(@product, @variant), :html => {:multipart => true} do |f|
   = f.error_messages
-  = field_set_tag t('tienda.variants.product_information') do
-    .splitContainer
-      %dl.third
-        %dt= f.label :name, t('tienda.variants.name')
-        %dd= f.text_field :name, :class => 'text focus'
-      %dl.third
-        %dt= f.label :permalink, t('tienda.variants.permalink')
-        %dd= f.text_field :permalink, :class => 'text'
-      %dl.third
-        %dt= f.label :sku, t('tienda.variants.sku')
-        %dd= f.text_field :sku, :class => 'text'
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.variants.product_information')
+    .panel-body
+      .row
+        .col-md-4
+          .form-group
+            = f.label :name, t('tienda.variants.name')
+            = f.text_field :name, class: 'form-control focus'
+        .col-md-4
+          .form-group
+            = f.label :permalink, t('tienda.variants.permalink')
+            = f.text_field :permalink, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :sku, t('tienda.variants.sku')
+            = f.text_field :sku, class: 'form-control'
 
-  = field_set_tag t('tienda.variants.image') do
-    %dl
-      %dd
-        = attachment_preview @variant.default_image, :hide_if_blank => true
-        %p= f.file_field :default_image_file
-  = field_set_tag t("tienda.variants.pricing") do
-    .splitContainer
-      %dl.third
-        %dt= f.label :price, t('tienda.variants.price')
-        %dd= f.text_field :price, :class => 'text'
-      %dl.third
-        %dt= f.label :cost_price, t('tienda.variants.cost_price')
-        %dd= f.text_field :cost_price, :class => 'text'
-      %dl.third
-        %dt= f.label :tax_rate_id, t('tienda.variants.tax_rate')
-        %dd= f.collection_select :tax_rate_id, Tienda::TaxRate.ordered, :id, :description, {:include_blank => true}, {:class => 'chosen-with-deselect', :data => {:placeholder => t('tienda.variants.no_tax')}}
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.variants.image')
+    .panel-body
+      .row
+        .col-md-12
+          .form-group
+            = attachment_preview @variant.default_image, hide_if_blank: true
+            = f.file_field :default_image_file, class: 'form-control'
 
-  = field_set_tag t('tienda.variants.stock_control') do
-    .splitContainer
-      %dl.half
-        %dt= f.label :weight, t('tienda.variants.weight')
-        %dd= f.text_field :weight, :class => 'text'
+  .panel.panel-default
+    .panel-heading
+      = t("tienda.variants.pricing")
+    .panel-body
+      .row
+        .col-md-4
+          .form-group
+            = f.label :price, t('tienda.variants.price')
+            .form-group.input-group
+              %span.input-group-addon= Tienda.settings.currency_unit.html_safe
+              = f.text_field :price, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :cost_price, t('tienda.variants.cost_price')
+            .form-group.input-group
+              %span.input-group-addon= Tienda.settings.currency_unit.html_safe
+              = f.text_field :cost_price, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :tax_rate_id, t('tienda.variants.tax_rate')
+            = f.collection_select :tax_rate_id, Tienda::TaxRate.ordered, :id, :description, {include_blank: true}, {class: 'form-control', data: {placeholder: t('tienda.variants.no_tax')}}
 
-      %dl.half
-        %dt= f.label :stock_control, t('tienda.variants.stock_control')
-        %dd.checkbox
-          = f.check_box :stock_control
-          = f.label :stock_control, t('tienda.variants.enable_stock_control?')
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.variants.stock_control')
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            = f.label :weight, t('tienda.variants.weight')
+            = f.text_field :weight, class: 'form-control'
 
-  = field_set_tag t('tienda.variants.website_properties') do
-    .splitContainer
-      %dl.half
-        %dt= f.label :active, t('tienda.variants.on_sale?')
-        %dd.checkbox
-          = f.check_box :active
-          = f.label :active, t('tienda.variants.on_sale_info')
-      %dl.half
-        %dt= f.label :default, t('tienda.variants.default_variant?')
-        %dd.checkbox
-          = f.check_box :default
-          = f.label :default, t('tienda.variants.default_variant_info')
+        .col-md-6
+          .form-group
+            = f.label :stock_control, t('tienda.variants.stock_control')
+            .checkbox
+              %label
+                = f.check_box :stock_control
+                = t('tienda.variants.enable_stock_control?')
 
-  %p.submit
-    - unless @variant.new_record?
-      %span.right= link_to t('tienda.delete'), product_variant_path(@product, @variant), :class => 'button purple', :method => :delete, :data => {:confirm => t('tienda.variants.delete_confirmation')}
-    = f.submit t('tienda.variants.save_variant'), :class => 'button green'
-    = link_to t('tienda.cancel'), :products, :class => 'button'
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.variants.website_properties')
+    .panel-body
+      .row
+        .col-md-6
+          = f.label :active, t('tienda.variants.on_sale?')
+          .checkbox
+            %label
+              = f.check_box :active
+              = t('tienda.variants.on_sale_info')
+        .col-md-6
+          = f.label :default, t('tienda.variants.default_variant?')
+          .checkbox
+            %label
+              = f.check_box :default
+              = t('tienda.variants.default_variant_info')
+
+  .panel.panel-default
+    .panel-body
+      - unless @variant.new_record?
+        %span.right= link_to t('tienda.delete'), product_variant_path(@product, @variant), class: 'btn btn-danger', method: :delete, data: {confirm: t('tienda.variants.delete_confirmation')}
+      = f.submit t('tienda.variants.save_variant'), class: 'btn btn-primary'
+      = link_to t('tienda.cancel'), :products, class: 'btn btn-default'

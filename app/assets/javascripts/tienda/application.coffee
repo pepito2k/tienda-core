@@ -8,7 +8,7 @@ $ ->
     return
 
   # New Stock Level AJAX Callback function
-  $('.tienda_products_index').on('ajax:success', '#new_stock_level_adjustment', (e, data, status, xhr) ->
+  $('.tienda_products_index, .tienda_variants_index').on('ajax:success', '#new_stock_level_adjustment', (e, data, status, xhr) ->
     quantity = parseInt($(this).find('#stock_level_adjustment_adjustment').val())
     product = $(this).find('#item_id').val()
     stock_label = $('a.btn-sm[href*=' + product + ']').closest('td').find('b');
