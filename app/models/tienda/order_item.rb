@@ -6,17 +6,17 @@ module Tienda
     # The associated order
     #
     # @return [Tienda::Order]
-    belongs_to :order, :class_name => 'Tienda::Order', :touch => true
+    belongs_to :order, class_name: 'Tienda::Order', touch: true
 
     # The item which has been ordered
-    belongs_to :ordered_item, :polymorphic => true
+    belongs_to :ordered_item, polymorphic: true
 
     # Any stock level adjustments which have been made for this order item
-    has_many :stock_level_adjustments, :as => :parent, :dependent => :nullify, :class_name => 'Tienda::StockLevelAdjustment'
+    has_many :stock_level_adjustments, as: :parent, dependent: :nullify, class_name: 'Tienda::StockLevelAdjustment'
 
     # Validations
-    validates :quantity, :numericality => true
-    validates :ordered_item, :presence => true
+    validates :quantity, numericality: true
+    validates :ordered_item, presence: true
 
     validate do
       unless in_stock?
@@ -46,13 +46,13 @@ module Tienda
     # @param quantity [Fixnum] the number of items to order
     # @return [Tienda::OrderItem]
     def self.add_item(ordered_item, quantity = 1)
-      raise Errors::UnorderableItem, :ordered_item => ordered_item unless ordered_item.orderable?
+      raise Errors::UnorderableItem, ordered_item: ordered_item unless ordered_item.orderable?
       transaction do
-        if existing = self.where(:ordered_item_id => ordered_item.id, :ordered_item_type => ordered_item.class.to_s).first
+        if existing = self.where(ordered_item_id: ordered_item.id, ordered_item_type: ordered_item.class.to_s).first
           existing.increase!(quantity)
           existing
         else
-          new_item = self.create(:ordered_item => ordered_item, :quantity => 0)
+          new_item = self.create(ordered_item: ordered_item, quantity: 0)
           new_item.increase!(quantity)
           new_item
         end
@@ -79,7 +79,7 @@ module Tienda
       transaction do
         self.quantity += amount
         unless self.in_stock?
-          raise Tienda::Errors::NotEnoughStock, :ordered_item => self.ordered_item, :requested_stock => self.quantity
+          raise Tienda::Errors::NotEnoughStock, ordered_item: self.ordered_item, requested_stock: self.quantity
         end
         self.save!
         self.order.remove_delivery_service_if_invalid
@@ -195,7 +195,7 @@ module Tienda
     # @return [Boolean]
     def in_stock?
       if self.ordered_item && self.ordered_item.stock_control?
-        self.ordered_item.stock >= unallocated_stock
+        self.ordered_item.stock_count >= unallocated_stock
       else
         true
       end
@@ -231,7 +231,7 @@ module Tienda
     # Allocate any unallocated stock for this order item. There is no return value.
     def allocate_unallocated_stock!
       if self.ordered_item.stock_control? && self.unallocated_stock != 0
-        self.ordered_item.stock_level_adjustments.create!(:parent => self, :adjustment => 0 - self.unallocated_stock, :description => "Order ##{self.order.number}")
+        self.ordered_item.stock_level_adjustments.create!(parent: self, adjustment: 0 - self.unallocated_stock, description: "Order ##{self.order.number}")
       end
     end
 

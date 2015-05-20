@@ -15,6 +15,9 @@ module Tienda
     attachment :fifth_image
     attachment :data_sheet
 
+    # To preserve backwards compatibility
+    alias_attribute :stock, :stock_count
+
     # The product's category
     #
     # @return [Tienda::ProductCategory]
