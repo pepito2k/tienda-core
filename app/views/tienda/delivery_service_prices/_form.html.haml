@@ -1,44 +1,58 @@
 = form_for [@delivery_service, @delivery_service_price] do |f|
   = f.error_messages
-  = field_set_tag t('tienda.delivery_service_prices.identification_weight')  do
-    .splitContainer
-      %dl.third
-        %dt= f.label :code, t('tienda.delivery_service_prices.code')
-        %dd= f.text_field :code, :class => 'focus text'
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.delivery_service_prices.identification_weight')
+    .panel-body
+      .row
+        .col-md-4
+          .form-group
+            = f.label :code, t('tienda.delivery_service_prices.code')
+            = f.text_field :code, class: 'focus form-control'
+        .col-md-4
+          .form-group
+            = f.label :min_weight, t('tienda.delivery_service_prices.min_weight')
+            = f.text_field :min_weight, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :max_weight, t('tienda.delivery_service_prices.max_weight')
+            = f.text_field :max_weight, class: 'form-control'
 
-      %dl.third
-        %dt= f.label :min_weight, t('tienda.delivery_service_prices.min_weight')
-        %dd= f.text_field :min_weight, :class => 'text'
-      %dl.third
-        %dt= f.label :max_weight, t('tienda.delivery_service_prices.max_weight')
-        %dd= f.text_field :max_weight, :class => 'text'
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.delivery_service_prices.pricing')
+    .panel-body
+      .row
+        .col-md-4
+          .form-group
+            = f.label :price, t('tienda.delivery_service_prices.price')
+            .form-group.input-group
+              %span.input-group-addon= Tienda.settings.currency_unit.html_safe
+              = f.text_field :price, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :cost_price, t('tienda.delivery_service_prices.cost_price')
+            .form-group.input-group
+              %span.input-group-addon= Tienda.settings.currency_unit.html_safe
+              = f.text_field :cost_price, class: 'form-control'
+        .col-md-4
+          .form-group
+            = f.label :tax_rate_id, t('tienda.delivery_service_prices.tax_rate')
+            = f.collection_select :tax_rate_id, Tienda::TaxRate.ordered, :id, :description, {include_blank: true}, {class: 'form-control', data: {placeholder: t('tienda.delivery_service_prices.no_tax')}}
 
-  = field_set_tag t('tienda.delivery_service_prices.pricing') do
-    .splitContainer
-      %dl.third
-        %dt= f.label :price, t('tienda.delivery_service_prices.price')
-        %dd
-          .moneyInput
-            .currency= Tienda.settings.currency_unit.html_safe
-            = f.text_field :price, :class => 'text'
-      %dl.third
-        %dt= f.label :cost_price, t('tienda.delivery_service_prices.cost_price')
-        %dd
-          .moneyInput
-            .currency= Tienda.settings.currency_unit.html_safe
-            = f.text_field :cost_price, :class => 'text'
-      %dl.third
-        %dt= f.label :tax_rate_id, t('tienda.delivery_service_prices.tax_rate')
-        %dd= f.collection_select :tax_rate_id, Tienda::TaxRate.ordered, :id, :description, {:include_blank => true}, {:class => 'chosen-with-deselect', :data => {:placeholder => t('tienda.delivery_service_prices.no_tax')}}
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.delivery_service_prices.countries')
+    .panel-body
+      .row
+        .col-md-12
+          .form-group
+            = f.collection_select :country_ids, Tienda::Country.ordered, :id, :name, {}, {class: 'form-control', multiple: true, data: {placeholder: t('tienda.delivery_service_prices.all_countries')}}
+            %p.help-block= t('tienda.delivery_service_prices.help.countries')
 
-  = field_set_tag t('tienda.delivery_service_prices.countries') do
-    %dl
-      %dd
-        = f.collection_select :country_ids, Tienda::Country.ordered, :id, :name, {}, {:class => 'chosen', :multiple => true, :data => {:placeholder => t('tienda.delivery_service_prices.all_countries')}}
-        %p.help= t('tienda.delivery_service_prices.help.countries')
-
-  %p.submit
-    - unless @delivery_service_price.new_record?
-      %span.right= link_to t('tienda.delete'), [@delivery_service, @delivery_service_price], :class => 'button purple', :method => :delete, :data => {:confirm => "Are you sure you wish to remove this price?"}
-    = f.submit t('tienda.submit'), :class => 'button green'
-    = link_to t('tienda.cancel'), [@delivery_service, :delivery_service_prices], :class => 'button'
+  .panel.panel-default
+    .panel-body
+      - unless @delivery_service_price.new_record?
+        %span.pull-right= link_to t('tienda.delete'), [@delivery_service, @delivery_service_price], class: 'btn btn-danger', method: :delete, data: {confirm: "Are you sure you wish to remove this price?"}
+      = f.submit t('tienda.submit'), class: 'btn btn-primary'
+      = link_to t('tienda.cancel'), [@delivery_service, :delivery_service_prices], class: 'btn btn-default'

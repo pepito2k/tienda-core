@@ -1,6 +1,15 @@
 - @page_title = t('tienda.delivery_services.delivery_services')
 
-= content_for :header do
-  %p.buttons= link_to t('tienda.delivery_services.back'), :delivery_services, :class => 'button'
-  %h2.delivery_services= t('tienda.delivery_services.delivery_services')
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.delivery_services.delivery_services')
+      -# %small Lorem ipsum dolor
+/ /. ROW
+
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.delivery_services.back'), :delivery_services, class: 'btn btn-default'
+
 = render 'form'

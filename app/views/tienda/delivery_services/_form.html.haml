@@ -1,38 +1,51 @@
 = form_for @delivery_service do |f|
   = f.error_messages
-  = field_set_tag t('tienda.delivery_services.details') do
-    .splitContainer
-      %dl.half
-        %dt= f.label :name, t('tienda.delivery_services.name')
-        %dd= f.text_field :name, :class => 'focus text'
-      %dl.half
-        %dt= f.label :code, t('tienda.delivery_services.code')
-        %dd= f.text_field :code, :class => 'text'
-    .splitContainer
-      %dl.half
-        %dt= f.label :active, t('tienda.delivery_services.active')
-        %dd.checkbox
-          = f.check_box :active
-          = f.label :active,  t('tienda.delivery_services.active_info')
-      %dl.half
-        %dt= f.label :default, t('tienda.delivery_services.default')
-        %dd.checkbox
-          = f.check_box :default
-          = f.label :default,  t('tienda.delivery_services.default_info')
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.delivery_services.details')
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            = f.label :name, t('tienda.delivery_services.name')
+            = f.text_field :name, class: 'focus form-control'
+        .col-md-6
+          .form-group
+            = f.label :code, t('tienda.delivery_services.code')
+            = f.text_field :code, class: 'form-control'
+      .row
+        .col-md-6
+          .form-group
+            = f.label :active, t('tienda.delivery_services.active')
+            .checkbox
+              %label
+                = f.check_box :active
+                = t('tienda.delivery_services.active_info')
+        .col-md-6
+          .form-group
+            = f.label :default, t('tienda.delivery_services.default')
+            .checkbox
+              %label
+                = f.check_box :default
+                = t('tienda.delivery_services.default_info')
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.delivery_services.courier')
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            = f.label :courier,  t('tienda.delivery_services.courier_name')
+            = f.text_field :courier, class: 'form-control'
+        .col-md-6
+          .form-group
+            = f.label :tracking_url,  t('tienda.delivery_services.tracking_url')
+            = f.text_field :tracking_url, class: 'form-control'
+            %p.help-block=  t('tienda.delivery_services.tracking_url_help_html')
 
-  = field_set_tag  t('tienda.delivery_services.courier') do
-    .splitContainer
-      %dl.half
-        %dt= f.label :courier,  t('tienda.delivery_services.courier_name')
-        %dd= f.text_field :courier, :class => 'text'
-      %dl.half
-        %dt= f.label :tracking_url,  t('tienda.delivery_services.tracking_url')
-        %dd
-          = f.text_field :tracking_url, :class => 'text'
-          %p.help=  t('tienda.delivery_services.tracking_url_help_html')
-
-  %p.submit
-    - unless @delivery_service.new_record?
-      %span.right= link_to  t('tienda.delete'), [@delivery_service], :class => 'button purple', :method => :delete, :data => {:confirm => t('tienda.delivery_services.delete_confirmation')}
-    = f.submit t('tienda.submit'), :class => 'button green'
-    = link_to t('tienda.cancel'), :delivery_services, :class => 'button'
+  .panel.panel-default
+    .panel-body
+      - unless @delivery_service.new_record?
+        %span.pull-right= link_to  t('tienda.delete'), [@delivery_service], class: 'btn btn-danger', method: :delete, data: {confirm: t('tienda.delivery_services.delete_confirmation')}
+      = f.submit t('tienda.submit'), class: 'btn btn-primary'
+      = link_to t('tienda.cancel'), :delivery_services, class: 'btn btn-default'

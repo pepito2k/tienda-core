@@ -1,23 +1,32 @@
 - @page_title = t('tienda.delivery_service_prices.delivery_services')
 
-= content_for :header do
-  %p.buttons
-    = link_to t('tienda.delivery_service_prices.new_price'), [:new, @delivery_service, :delivery_service_price], :class => 'button green'
-    = link_to t('tienda.delivery_service_prices.back_to_delivery_services'), :delivery_services, :class => 'button'
-  %h2.delivery_services= t('tienda.delivery_service_prices.pricing_for', delivery_name: @delivery_service.name)
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.delivery_service_prices.pricing_for', delivery_name: @delivery_service.name)
+      -# %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.delivery_service_prices.new_price'), [:new, @delivery_service, :delivery_service_price], class: 'btn btn-primary'
+      = link_to t('tienda.delivery_service_prices.back_to_delivery_services'), :delivery_services, class: 'btn btn-default'
 
-.table
-  %table.data
-    %thead
-      %tr
-        %th= t('tienda.delivery_service_prices.code')
-        %th= t('tienda.delivery_service_prices.weight_allowance')
-        %th= t('tienda.delivery_service_prices.price')
-        %th= t('tienda.delivery_service_prices.cost')
-    %tbody
-      - for price in @delivery_service_prices
+.panel.panel-default
+  .panel-heading
+    Listing delivery services
+  .panel-body
+    %table.table.table-hover
+      %thead
         %tr
-          %td= link_to price.code, [:edit, @delivery_service, price]
-          %td #{number_to_weight price.min_weight} &rarr; #{number_to_weight price.max_weight}
-          %td= number_to_currency(price.price)
-          %td= number_to_currency price.cost_price
+          %th= t('tienda.delivery_service_prices.code')
+          %th= t('tienda.delivery_service_prices.weight_allowance')
+          %th= t('tienda.delivery_service_prices.price')
+          %th= t('tienda.delivery_service_prices.cost')
+      %tbody
+        - for price in @delivery_service_prices
+          %tr
+            %td= link_to price.code, [:edit, @delivery_service, price]
+            %td #{number_to_weight price.min_weight} &rarr; #{number_to_weight price.max_weight}
+            %td= number_to_currency(price.price)
+            %td= number_to_currency price.cost_price
