@@ -38,6 +38,7 @@ module Tienda
       item.identifier       = identifier.to_s
       item.url              = options[:url]            if options[:url]
       item.link_options     = options[:link_options]   if options[:link_options]
+      item.icon             = options[:icon]           if options[:icon]
       item.active_if        = block                    if block_given?
       items << item
     end
@@ -47,11 +48,7 @@ module Tienda
     end
 
     class NavigationItem
-      attr_accessor :manager
-      attr_accessor :identifier
-      attr_accessor :url
-      attr_accessor :link_options
-      attr_accessor :active_if
+      attr_accessor :manager, :identifier, :url, :link_options, :active_if, :icon
 
       def description
         I18n.translate("tienda.navigation.#{manager.identifier}.#{identifier}")

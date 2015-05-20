@@ -9,13 +9,13 @@ require 'tienda/navigation_manager'
 # This is the default navigation manager for the admin interface.
 #
 Tienda::NavigationManager.build(:admin_primary) do
-  add_item :root
-  add_item :orders
-  add_item :products
-  add_item :product_categories
-  add_item :delivery_services
-  add_item :tax_rates
-  add_item :users
-  add_item :countries
-  add_item :settings
+  add_item :root, icon: 'fa fa-dashboard'
+  add_item :orders, icon: 'fa fa-money'
+  add_item :products, icon: 'fa fa-barcode'
+  add_item :product_categories, icon: 'fa fa-tags'
+  add_item :delivery_services, icon: 'fa fa-truck'
+  add_item :tax_rates, icon: 'fa fa-calculator'
+  add_item :users, icon: 'fa fa-users'
+  add_item :countries, icon: 'fa fa-flag'
+  add_item :settings, icon: 'fa fa-gear'
 end

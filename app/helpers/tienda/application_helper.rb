@@ -6,7 +6,9 @@ module Tienda
     end
 
     def navigation_manager_link(item)
-      link_to item.description, item.url(self), item.link_options.merge(:class => item.active?(self) ? 'active-menu' : 'inactive')
+      link_to item.url(self), item.link_options.merge(class: item.active?(self) ? 'active-menu' : 'inactive') do
+        "<i class='fa #{item.icon}'></i>#{item.description}".html_safe
+      end
     end
 
     def status_tag(status)
