@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124094549) do
+ActiveRecord::Schema.define(version: 20150517212100) do
 
   create_table "nifty_attachments", force: :cascade do |t|
     t.integer  "parent_id",   limit: 4
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20150124094549) do
     t.boolean  "default",             limit: 1,                             default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "stock_count",         limit: 4,                             default: 0,     null: false
   end
 
   add_index "tienda_products", ["parent_id"], name: "index_tienda_products_on_parent_id", using: :btree
@@ -220,8 +221,7 @@ ActiveRecord::Schema.define(version: 20150124094549) do
   add_index "tienda_settings", ["key"], name: "index_tienda_settings_on_key", using: :btree
 
   create_table "tienda_stock_level_adjustments", force: :cascade do |t|
-    t.integer  "item_id",     limit: 4
-    t.string   "item_type",   limit: 255
+    t.integer  "product_id",  limit: 4
     t.string   "description", limit: 255
     t.integer  "adjustment",  limit: 4,   default: 0
     t.string   "parent_type", limit: 255
@@ -230,8 +230,8 @@ ActiveRecord::Schema.define(version: 20150124094549) do
     t.datetime "updated_at"
   end
 
-  add_index "tienda_stock_level_adjustments", ["item_id", "item_type"], name: "index_tienda_stock_level_adjustments_items", using: :btree
   add_index "tienda_stock_level_adjustments", ["parent_id", "parent_type"], name: "index_tienda_stock_level_adjustments_parent", using: :btree
+  add_index "tienda_stock_level_adjustments", ["product_id"], name: "index_tienda_stock_level_adjustments_items", using: :btree
 
   create_table "tienda_tax_rates", force: :cascade do |t|
     t.string   "name",         limit: 255
