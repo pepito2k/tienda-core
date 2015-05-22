@@ -25,6 +25,15 @@ $ ->
     $(this).find('#stockModal .alert-danger').removeClass('hidden').text(xhr.responseText)
     return
 
+  $('#main-menu').metisMenu()
+  
+  $(window).bind 'load resize', ->
+    if $(this).width() < 768
+      $('div.sidebar-collapse').addClass 'collapse'
+    else
+      $('div.sidebar-collapse').removeClass 'collapse'
+    return
+
   return
 # $ ->
 #

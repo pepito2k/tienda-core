@@ -18,7 +18,7 @@
     .panel.panel-primary.text-center.no-boder.bg-color-blue
       .panel-body
         %i.fa.fa-shopping-cart.fa-5x
-        %h3 52,160
+        %h3= @last_30_days_orders.values.sum
       .panel-footer.back-footer-blue
         Sales
   .col-md-3.col-sm-12.col-xs-12
@@ -32,107 +32,125 @@
     .panel.panel-primary.text-center.no-boder.bg-color-brown
       .panel-body
         %i.fa.fa-users.fa-5x
-        %h3 36,752
+        %h3= @users_count
       .panel-footer.back-footer-brown
-        No. of Visits
+        Users
 .row
   .col-md-9.col-sm-12.col-xs-12
     .panel.panel-default
       .panel-heading
-        Bar Chart Example
+        Orders last 30 days
       .panel-body
         #morris-bar-chart
   .col-md-3.col-sm-12.col-xs-12
     .panel.panel-default
       .panel-heading
-        Donut Chart Example
+        Sales by Product Category
       .panel-body
         #morris-donut-chart
 / /. ROW
-.row
-  .col-md-4.col-sm-12.col-xs-12
-    .panel.panel-default
-      .panel-heading
-        Tasks Panel
-      .panel-body
-        .list-group
-          %a.list-group-item{:href => "#"}
-            %span.badge 7 minutes ago
-            %i.fa.fa-fw.fa-comment
-            Commented on a post
-          %a.list-group-item{:href => "#"}
-            %span.badge 16 minutes ago
-            %i.fa.fa-fw.fa-truck
-            Order 392 shipped
-          %a.list-group-item{:href => "#"}
-            %span.badge 36 minutes ago
-            %i.fa.fa-fw.fa-globe
-            Invoice 653 has paid
-          %a.list-group-item{:href => "#"}
-            %span.badge 1 hour ago
-            %i.fa.fa-fw.fa-user
-            A new user has been added
-          %a.list-group-item{:href => "#"}
-            %span.badge 1.23 hour ago
-            %i.fa.fa-fw.fa-user
-            A new user has added
-          %a.list-group-item{:href => "#"}
-            %span.badge yesterday
-            %i.fa.fa-fw.fa-globe
-            Saved the world
-        .text-right
-          %a{:href => "#"}
-            More Tasks
-            %i.fa.fa-arrow-circle-right
-  .col-md-8.col-sm-12.col-xs-12
-    .panel.panel-default
-      .panel-heading
-        Responsive Table Example
-      .panel-body
-        .table-responsive
-          %table.table.table-striped.table-bordered.table-hover
-            %thead
-              %tr
-                %th S No.
-                %th First Name
-                %th Last Name
-                %th User Name
-                %th Email ID.
-            %tbody
-              %tr
-                %td 1
-                %td John
-                %td Doe
-                %td John15482
-                %td name@site.com
-              %tr
-                %td 2
-                %td Kimsila
-                %td Marriye
-                %td Kim1425
-                %td name@site.com
-              %tr
-                %td 3
-                %td Rossye
-                %td Nermal
-                %td Rossy1245
-                %td name@site.com
-              %tr
-                %td 4
-                %td Richard
-                %td Orieal
-                %td Rich5685
-                %td name@site.com
-              %tr
-                %td 5
-                %td Jacob
-                %td Hielsar
-                %td Jac4587
-                %td name@site.com
-              %tr
-                %td 6
-                %td Wrapel
-                %td Dere
-                %td Wrap4585
-                %td name@site.com
+-# .row
+-#   .col-md-4.col-sm-12.col-xs-12
+-#     .panel.panel-default
+-#       .panel-heading
+-#         Tasks Panel
+-#       .panel-body
+-#         .list-group
+-#           %a.list-group-item{:href => "#"}
+-#             %span.badge 7 minutes ago
+-#             %i.fa.fa-fw.fa-comment
+-#             Commented on a post
+-#           %a.list-group-item{:href => "#"}
+-#             %span.badge 16 minutes ago
+-#             %i.fa.fa-fw.fa-truck
+-#             Order 392 shipped
+-#           %a.list-group-item{:href => "#"}
+-#             %span.badge 36 minutes ago
+-#             %i.fa.fa-fw.fa-globe
+-#             Invoice 653 has paid
+-#           %a.list-group-item{:href => "#"}
+-#             %span.badge 1 hour ago
+-#             %i.fa.fa-fw.fa-user
+-#             A new user has been added
+-#           %a.list-group-item{:href => "#"}
+-#             %span.badge 1.23 hour ago
+-#             %i.fa.fa-fw.fa-user
+-#             A new user has added
+-#           %a.list-group-item{:href => "#"}
+-#             %span.badge yesterday
+-#             %i.fa.fa-fw.fa-globe
+-#             Saved the world
+-#         .text-right
+-#           %a{:href => "#"}
+-#             More Tasks
+-#             %i.fa.fa-arrow-circle-right
+-#   .col-md-8.col-sm-12.col-xs-12
+-#     .panel.panel-default
+-#       .panel-heading
+-#         Responsive Table Example
+-#       .panel-body
+-#         .table-responsive
+-#           %table.table.table-striped.table-bordered.table-hover
+-#             %thead
+-#               %tr
+-#                 %th S No.
+-#                 %th First Name
+-#                 %th Last Name
+-#                 %th User Name
+-#                 %th Email ID.
+-#             %tbody
+-#               %tr
+-#                 %td 1
+-#                 %td John
+-#                 %td Doe
+-#                 %td John15482
+-#                 %td name@site.com
+-#               %tr
+-#                 %td 2
+-#                 %td Kimsila
+-#                 %td Marriye
+-#                 %td Kim1425
+-#                 %td name@site.com
+-#               %tr
+-#                 %td 3
+-#                 %td Rossye
+-#                 %td Nermal
+-#                 %td Rossy1245
+-#                 %td name@site.com
+-#               %tr
+-#                 %td 4
+-#                 %td Richard
+-#                 %td Orieal
+-#                 %td Rich5685
+-#                 %td name@site.com
+-#               %tr
+-#                 %td 5
+-#                 %td Jacob
+-#                 %td Hielsar
+-#                 %td Jac4587
+-#                 %td name@site.com
+-#               %tr
+-#                 %td 6
+-#                 %td Wrapel
+-#                 %td Dere
+-#                 %td Wrap4585
+-#                 %td name@site.com
 / /. ROW
+
+:javascript
+  $(function () {
+    Morris.Bar({
+      element: 'morris-bar-chart',
+      data: [ #{@last_30_days_orders.map{ |k, v| "{ y: '#{k}', a: #{v} }" }.join ', '} ],
+      xkey: 'y',
+      ykeys: ['a'],
+      labels: ['Orders'],
+      hideHover: 'auto',
+      resize: true
+    });
+    Morris.Donut({
+      element: 'morris-donut-chart',
+      data: [ #{@sales_by_category.map{ |k, v| "{ label: '#{k}', value: #{v} }" }.join ', '} ],
+      resize: true
+  });
+  });
