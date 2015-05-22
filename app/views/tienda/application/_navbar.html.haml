@@ -156,7 +156,7 @@
             Settings
         %li.divider
         %li
-          %a{href: logout_path, method: :delete}
+          %a{href: logout_path, data: { method: :delete }}
             %i.fa.fa-sign-out.fa-fw
             = t('.logout')
       / /.dropdown-user
