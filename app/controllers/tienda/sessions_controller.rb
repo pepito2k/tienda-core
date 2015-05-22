@@ -7,7 +7,7 @@ module Tienda
     def create
       if user = Tienda::User.authenticate(params[:email_address], params[:password])
         session[:tienda_user_id] = user.id
-        redirect_to :orders
+        redirect_to :root
       else
         flash.now[:alert] = t('tienda.sessions.create_alert')
         render action: "new"
