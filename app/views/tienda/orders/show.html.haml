@@ -1,25 +1,31 @@
 - @page_title = "#{t('tienda.orders.order')} ##{@order.number}"
 
-= content_for :header do
-  %p.buttons
-    = link_to t('tienda.edit'), [:edit, @order], :class => 'button'
-    - if @order.accepted?
-      = link_to t('tienda.orders.despatch_note.despatch_note'), [:despatch_note, @order], :class => 'button', :rel => 'print'
-    = link_to t('tienda.orders.back_to_orders'), :orders, :class => 'button grey'
-  %h2.orders= t('tienda.orders.order_no_html', order_number: @order.number)
+.row
+  .col-md-12
+    %h1.page-header
+      = t('tienda.orders.order_no_html', order_number: @order.number)
+      -# %small Lorem ipsum dolor
+/ /. ROW
+.row
+  .col-md-12
+    %p.pull-right
+      = link_to t('tienda.edit'), [:edit, @order], class: 'btn btn-default'
+      - if @order.accepted?
+        = link_to t('tienda.orders.despatch_note.despatch_note'), [:despatch_note, @order], class: 'btn btn-success', rel: 'print'
+      = link_to t('tienda.orders.back_to_orders'), :orders, class: 'btn btn-default'
 
-#order
+- if @order.received?
+  = render 'order_details'
+  = render 'status_bar'
+- else
+  %p.warning= t('tienda.orders.in_progress_warning')
 
-  - if @order.received?
-    = render 'order_details'
-    = render 'status_bar'
-  - else
-    %p.warning= t('tienda.orders.in_progress_warning')
+= render 'order_items'
 
-  = field_set_tag t('tienda.orders.order_items'), :class => 'padded' do
-    = render 'order_items'
-
-  - if @order.received?
-    = field_set_tag t('tienda.orders.payments'), :class => 'padded orderPayments' do
+- if @order.received?
+  .panel.panel-default
+    .panel-heading
+      = t('tienda.orders.payments')
+    .panel-body
       = render 'payments_table'
       = render 'payments_form'

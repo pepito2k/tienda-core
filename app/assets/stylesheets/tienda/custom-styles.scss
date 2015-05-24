@@ -406,6 +406,77 @@ line-height: 1.428571429;
 }
 
 /*----------------------------------------------
+   ORDER STATUS STYLES
+------------------------------------------------*/
+
+.status-bar {
+  background: image-url("tienda/square.svg") repeat-x 0 15px;
+  background-size: 8px;
+  margin: 45px 0;
+  overflow: hidden;
+}
+
+.status-bar ul {
+  list-style: none;
+}
+
+.status-bar ul li {
+  width: 33%;
+  float: left;
+  text-align: center;
+  background: image-url("tienda/statuses/shipped.svg") no-repeat center 0;
+  background-size: 36px;
+  padding-top: 42px;
+  z-index: 10;
+}
+
+.status-bar ul h4 {
+  color: #E32479;
+}
+
+.status-bar ul li p {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #999;
+}
+
+.status-bar ul li a {
+  color: inherit;
+}
+
+.status-bar ul li.payment {
+  background-image: image-url("tienda/statuses/paid.svg");
+}
+
+.status-bar ul li.payment h4 {
+  color: #3DB3E2;
+}
+
+.status-bar ul li.received {
+  background-image: image-url("tienda/statuses/received.svg");
+}
+
+.status-bar ul li.received h4 {
+  color: #909091;
+}
+
+.status-bar ul li.accepted {
+  background-image: image-url("tienda/statuses/accepted.svg");
+}
+
+.status-bar ul li.accepted h4 {
+  color: #89BD2F;
+}
+
+.status-bar ul li.rejected {
+  background-image: image-url("tienda/statuses/rejected.svg");
+}
+
+.status-bar ul li.rejected h4 {
+  color: #E33127;
+}
+
+/*----------------------------------------------
     MEDIA QUERIES
 ------------------------------------------------*/
 

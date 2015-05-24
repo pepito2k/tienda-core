@@ -1,6 +1,6 @@
 - unless @payments.empty?
   .table
-    %table.data
+    %table.table.table-hover
       %thead
         %tr
           %th= t('tienda.orders.id')
@@ -27,11 +27,12 @@
                   #{t('tienda.orders.from_payment')} ##{payment.parent_payment_id}
             - else
               %td= number_to_currency payment.amount
-              %td= boolean_tag payment.refunded?, nil, :true_text => number_to_currency(payment.amount_refunded)
+              %td= boolean_tag payment.refunded?, nil, true_text: number_to_currency(payment.amount_refunded)
             %td.refund
               - if payment.refundable?
-                = link_to t('tienda.orders.refund'), [:refund, @order, payment], :class => 'button purple button-mini', :rel => 'dialog'
+                = link_to t('tienda.orders.refund'), [:refund, @order, payment], class: 'btn btn-danger btn-sm', rel: 'dialog'
               - else
-                = link_to t('tienda.delete'), [@order, payment], :class => 'button purple button-mini', :data => {:confirm => t('tienda.orders.payment_remove_confirmation') }, :method => :delete
+                = link_to t('tienda.delete'), [@order, payment], class: 'btn btn-danger btn-sm', data: {confirm: t('tienda.orders.payment_remove_confirmation') }, method: :delete
 - else
-  %p.notice= t('tienda.orders.no_payments')
+  .alert.alert-warning
+    = t('tienda.orders.no_payments')

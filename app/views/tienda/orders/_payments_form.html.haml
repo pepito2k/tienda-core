@@ -1,15 +1,19 @@
 = form_for [@order, Tienda::Payment.new(:amount => @order.balance)] do |f|
-  %dl.text
-    %dt= f.label :method, t('tienda.orders.method')
-    %dd= f.text_field :method, :class => 'text'
-  %dl.text
-    %dt= f.label :reference, t('tienda.orders.reference')
-    %dd= f.text_field :reference, :class => 'text'
-  %dl.amount
-    %dt= f.label :amount, t('tienda.orders.amount')
-    %dd
-      .moneyInput
-        .currency= Tienda.settings.currency_unit.html_safe
-        = f.text_field :amount, :class => 'text'
-  %dl.submit
-    %dd= f.submit t('tienda.orders.add_payment') , :class => 'button green'
+  .col-md-3
+    .form-group
+      = f.label :method, t('tienda.orders.method')
+      = f.text_field :method, class: 'form-control'
+  .col-md-3
+    .form-group
+      = f.label :reference, t('tienda.orders.reference')
+      = f.text_field :reference, class: 'form-control'
+  .col-md-3
+    .form-group
+      = f.label :amount, t('tienda.orders.amount')
+      .form-group.input-group
+        %span.input-group-addon= Tienda.settings.currency_unit.html_safe
+        = f.text_field :amount, class: 'form-control'
+  .col-md-3
+    .form-group
+      %br
+      = f.submit t('tienda.orders.add_payment') , class: 'btn btn-primary'

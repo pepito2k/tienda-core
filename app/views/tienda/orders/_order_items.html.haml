@@ -1,6 +1,8 @@
-.order_items
-  .table
-    %table.data
+.panel.panel-default
+  .panel-heading
+    = t('tienda.orders.order_items')
+  .panel-body
+    %table.table.table-hover
       %thead
         %tr
           %th.qty= t('tienda.orders.qty')
