@@ -1,39 +1,21 @@
-.modal-header
-  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-  %h4.modal-title= t('tienda.stock_level_adjustments.stock_levels_for', item_name: @item.name)
-.modal-body
-  .table
-    .alert.alert-info
-      = t('tienda.stock_level_adjustments.current_stock_level_html', item_stock: @item.stock_count).html_safe
-      %span.float-right= page_entries_info @stock_level_adjustments
+- @page_title = t('tienda.stock_level_adjustments.stock_levels_for', item_name: @item.name)
 
-    .alert.alert-danger.hidden
-      Probando
-
-    = form_for @new_sla, remote: request.xhr? do |f|
-      = hidden_field_tag 'item_id', params[:item_id]
-      %table.table.table-hover
-        %thead
-          %tr
-            %th{:width => '25%'}= t('tienda.stock_level_adjustments.date')
-            %th{:width => '50%'}= t('tienda.stock_level_adjustments.description')
-            %th{:width => '25%'}= t('tienda.stock_level_adjustments.adjustment')
-        %tbody
-          %tr.form
-            %td
-            %td.desc= f.text_field :description, class: 'form-control'
-            %td.adjustment
-              .form-group.input-group
-                = f.text_field :adjustment, class: 'form-control'
-                %span.input-group-btn
-                  = f.submit t('tienda.stock_level_adjustments.add'), class: 'btn btn-success'
-
-          - for sla in @stock_level_adjustments
-            %tr
-              %td= l(sla.created_at, format: :long)
-              %td= sla.description
-              %td= sla.adjustment > 0  ? "+#{sla.adjustment}" : sla.adjustment
-
-      = paginate @stock_level_adjustments
-.modal-footer
-  %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
+- if request.xhr?
+  .modal-header
+    %button.close{aria: {hidden: 'true', dismiss: 'modal'}, type: 'button'} ×
+    %h4.modal-title= t('tienda.stock_level_adjustments.stock_levels_for', item_name: @item.name)
+  .modal-body
+    = render 'table'
+  .modal-footer
+    %button.btn.btn-default{data: {dismiss: 'modal'}, type: 'button'} Close
+- else
+  .row
+    .col-md-12
+      %h1.page-header
+        = t('tienda.stock_level_adjustments.stock_levels_for', item_name: @item.name)
+  %br
+  .panel.panel-default
+    .panel-heading
+      Stock Level Adjustments
+    .panel-body
+      = render 'table'
