@@ -52,22 +52,22 @@
             %th.remove= t('tienda.products.remove')
             %th
         %tbody
-          %tr.template{:style => 'display:none;'}
-            %td= text_field_tag 'product[product_attributes_array][][key]', '', :placeholder => t('tienda.products.name')
-            %td= text_field_tag 'product[product_attributes_array][][value]', '', :placeholder => t('tienda.products.value')
+          %tr.template{style: 'display:none;'}
+            %td= text_field_tag 'product[product_attributes_array][][key]', '', placeholder: t('tienda.products.name'), class: 'form-control'
+            %td= text_field_tag 'product[product_attributes_array][][value]', '', placeholder: t('tienda.products.value'), class: 'form-control'
             %td.searchable= check_box_tag 'product[product_attributes_array][][searchable]', '1'
             %td.searchable= check_box_tag 'product[product_attributes_array][][public]', '1'
-            %td.remove= link_to t('tienda.remove') , '#', :class => 'button button-mini purple'
+            %td.remove= link_to t('tienda.remove') , '#', class: 'btn btn-sm btn-danger'
             %td.handle
           - for attribute in @product.product_attributes
             %tr
-              %td= text_field_tag 'product[product_attributes_array][][key]', attribute.key, :placeholder => t('tienda.products.name')
-              %td= text_field_tag 'product[product_attributes_array][][value]', attribute.value, :placeholder => t('tienda.products.value')
+              %td= text_field_tag 'product[product_attributes_array][][key]', attribute.key, placeholder: t('tienda.products.name'), class: 'form-control'
+              %td= text_field_tag 'product[product_attributes_array][][value]', attribute.value, placeholder: t('tienda.products.value'), class: 'form-control'
               %td.searchable= check_box_tag 'product[product_attributes_array][][searchable]', '1', attribute.searchable?
               %td.searchable= check_box_tag 'product[product_attributes_array][][public]', '1', attribute.public?
-              %td.remove= link_to t("tienda.remove"), '#', :class => 'button button-mini purple'
+              %td.remove= link_to t("tienda.remove"), '#', class: 'btn btn-sm btn-danger'
               %td.handle
-      %p.addAttribute= link_to t('tienda.products.add_attribute') , '#', data: {behavior: 'addAttributeToAttributesTable'}, class: 'btn btn-default btn-sm'
+      %p.addAttribute= link_to t('tienda.products.add_attribute') , '#', data: {behavior: 'addAttributeToAttributesTable'}, class: 'btn btn-success btn-sm'
 
   .panel.panel-default
     .panel-heading

@@ -406,6 +406,15 @@ line-height: 1.428571429;
 }
 
 /*----------------------------------------------
+   PRODUCT STYLES
+------------------------------------------------*/
+
+.productAttributes td.handle {
+  background: image-url('tienda/move.svg') no-repeat center;
+  background-size: 16px
+}
+
+/*----------------------------------------------
    ORDER STATUS STYLES
 ------------------------------------------------*/
 
