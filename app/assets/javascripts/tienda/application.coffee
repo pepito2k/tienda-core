@@ -26,7 +26,7 @@ $ ->
     return
 
   $('#main-menu').metisMenu()
-  
+
   $(window).bind 'load resize', ->
     if $(this).width() < 768
       $('div.sidebar-collapse').addClass 'collapse'
@@ -34,15 +34,15 @@ $ ->
       $('div.sidebar-collapse').removeClass 'collapse'
     return
 
+  # When clicking the order search button, toggle the form
+  $('a[rel=searchOrders]').on 'click', ->
+    $('div.search-orders').toggleClass('hide')
+
   return
 # $ ->
 #
 #   # Automatically focus all fields with the 'focus' class
 #   $('input.focus').focus()
-#
-#   # When clicking the order search button, toggle the form
-#   $('a[rel=searchOrders]').on 'click', ->
-#     $('div.orderSearch').toggle()
 #
 #   # Add a new attribute to a table
 #   $('a[data-behavior=addAttributeToAttributesTable]').on 'click', ->

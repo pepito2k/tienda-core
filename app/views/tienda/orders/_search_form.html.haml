@@ -1,24 +1,40 @@
-.orderSearch{:style => action_name == 'search' ? "display:block" : ''}
-  = search_form_for @query, :url => search_orders_path, :html => { :method => :post } do |f|
-    %dl.left
-      %dt= f.label :id_eq, t('tienda.orders.order_number')
-      %dd= f.text_field :id_eq
-      %dt= f.label :first_name_or_last_name_or_company_cont, t('tienda.orders.customer')
-      %dd= f.text_field :first_name_or_last_name_or_company_cont
-      %dt= f.label :address1_or_address2_or_address3_or_address4_or_postcode_cont, t('tienda.orders.billing_address')
-      %dd= f.text_field :billing_address1_or_billing_address2_or_billing_address3_or_billing_address4_or_billing_postcode_cont
-      %dt= f.label :consignment_number_cont, t('tienda.orders.consignment_number')
-      %dd= f.text_field :consignment_number_cont
-      %dt= f.label :received_at_eq, t('tienda.orders.received_between')
-      %dd
-        = f.text_field :received_at_gteq, :class => 'small'
-        &rarr;
-        = f.text_field :received_at_lteq, :class => 'small'
-    %dl.right
-      %dt= f.label :email_address_cont, t('tienda.orders.email_address')
-      %dd= f.text_field :email_address_cont
-      %dt= f.label :phone_number_cont, t('tienda.orders.phone_number')
-      %dd= f.text_field :phone_number_cont
-      %dt= f.label :status_eq, t('tienda.orders.status')
-      %dd= f.select :status_eq, [nil] + Tienda::Order::STATUSES.map { |s| [t("tienda.orders.statuses.#{s}"), s]}
-      %dd= f.submit  t('tienda.orders.search'), :class => 'button green button'
+.panel.panel-default.search-orders.hide{style: action_name == 'search' ? 'display:block' : ''}
+  .panel-heading
+    Search orders
+  .panel-body
+    = search_form_for @query, url: search_orders_path, html: { method: :post } do |f|
+      .row
+        .col-md-6
+          .form-group
+            = f.label :id_eq, t('tienda.orders.order_number')
+            = f.text_field :id_eq, class: 'form-control'
+          .form-group
+            = f.label :first_name_or_last_name_or_company_cont, t('tienda.orders.customer')
+            = f.text_field :first_name_or_last_name_or_company_cont, class: 'form-control'
+          .form-group
+            = f.label :address1_or_address2_or_address3_or_address4_or_postcode_cont, t('tienda.orders.billing_address')
+            = f.text_field :billing_address1_or_billing_address2_or_billing_address3_or_billing_address4_or_billing_postcode_cont, class: 'form-control'
+          .form-group
+            = f.label :consignment_number_cont, t('tienda.orders.consignment_number')
+            = f.text_field :consignment_number_cont, class: 'form-control'
+          .row
+            .col-md-12
+              = f.label :received_at_eq, t('tienda.orders.received_between')
+            .col-md-5
+              = f.text_field :received_at_gteq, class: 'form-control col-md-5'
+            .col-md-1
+              %p.form-control-static
+                &rarr;
+            .col-md-6
+              = f.text_field :received_at_lteq, class: 'form-control col-md-5'
+        .col-md-6
+          .form-group
+            = f.label :email_address_cont, t('tienda.orders.email_address')
+            = f.text_field :email_address_cont, class: 'form-control'
+          .form-group
+            = f.label :phone_number_cont, t('tienda.orders.phone_number')
+            = f.text_field :phone_number_cont, class: 'form-control'
+          .form-group
+            = f.label :status_eq, t('tienda.orders.status')
+            = f.select :status_eq, [nil] + Tienda::Order::STATUSES.map { |s| [t("tienda.orders.statuses.#{s}"), s]}, {}, class: 'form-control'
+          = f.submit  t('tienda.orders.search'), class: 'btn btn-primary'
