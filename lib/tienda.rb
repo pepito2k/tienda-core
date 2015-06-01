@@ -11,7 +11,6 @@ require 'counter_culture'
 require 'nifty/utils'
 require 'nifty/key_value_store'
 require 'nifty/attachments'
-require 'nifty/dialog'
 
 module Tienda
   class << self

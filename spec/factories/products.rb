@@ -1,7 +1,7 @@
 module Tienda
   FactoryGirl.define do
 
-    factory :stock_product, :class => Product do
+    factory :stock_product, class: Product do
       description         'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
       product_category    { ProductCategory.find_by_permalink('phones') || create(:phones_category) }
       tax_rate            { TaxRate.find_by_rate(20) || create(:standard_tax) }
@@ -12,12 +12,12 @@ module Tienda
 
       after(:create) do |product, ev|
         if ev.initial_stock
-          product.stock_level_adjustments.create(:adjustment => ev.initial_stock, :description => "Initial Stock")
+          product.stock_level_adjustments.create(adjustment: ev.initial_stock, description: "Initial Stock")
         end
       end
     end
 
-    factory :yealink_t22p, :parent => :stock_product do
+    factory :yealink_t22p, parent: :stock_product do
       name                'Yealink T22P'
       sku                 'YT22P'
       short_description   'An awesome phone which you will absolutely love to use.'
@@ -26,7 +26,7 @@ module Tienda
       weight              1.5
     end
 
-    factory :snom_870, :parent => :stock_product do
+    factory :snom_870, parent: :stock_product do
       name                'Snom 870'
       sku                 'SN870'
       short_description   'An awesome phone which you will absolutely love to use.'
@@ -35,7 +35,7 @@ module Tienda
       weight              2.0
     end
 
-    factory :yealink_headset, :parent => :stock_product do
+    factory :yealink_headset, parent: :stock_product do
       name                'Yealink Headset'
       sku                 'YHS32'
       short_description   'An awesome headset which you will absolutely love to use.'
@@ -44,7 +44,7 @@ module Tienda
       weight              0.5
     end
 
-    factory :software_product, :class => Product do
+    factory :software_product, class: Product do
       name                'Software Product'
       sku                 'SP'
       short_description   'An awesome piece of software which can be purchased.'

@@ -8,7 +8,7 @@ before_script:
   - cp test/app/config/database.travis.yml test/app/config/database.yml
   - RAILS_ENV=test bundle exec rake db:create db:schema:load
 script:
-  - RAILS_ENV=test bundle exec rake test
+  - RAILS_ENV=test bundle exec rspec
 notifications:
   email: gonzalo@robaina.me
 addons:

@@ -36,4 +36,7 @@ Dummy::Application.configure do
 
   # Set the Test order as it was always
   config.active_support.test_order = :sorted
+
+  # Remove deprecation warning
+  config.active_record.raise_in_transactional_callbacks = true
 end

@@ -6,9 +6,9 @@ module Tienda
     has_secure_password
 
     # Validations
-    validates :first_name, :presence => true
-    validates :last_name, :presence => true
-    validates :email_address, :presence => true
+    validates :first_name, presence: true
+    validates :last_name, presence: true
+    validates :email_address, presence: true
 
     # The user's first name & last name concatenated
     #
@@ -39,7 +39,7 @@ module Tienda
     # @param paassword [String]
     # @return [Tienda::User]
     def self.authenticate(email_address, password)
-      user = self.where(:email_address => email_address).first
+      user = self.where(email_address: email_address).first
       return false if user.nil?
       return false unless user.authenticate(password)
       user
