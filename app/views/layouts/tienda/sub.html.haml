@@ -1,10 +1,48 @@
 !!!
-%html.login
+%html{lang: I18n.locale}
   %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     %title #{@page_title} - Tienda
-    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
-    = stylesheet_link_tag 'tienda/sub'
+    %meta{content: "http://gonzalo.robaina.me", name: "author"}/
+    =# stylesheet_link_tag 'tienda/application'
+    / Bootstrap Styles
+    %link{href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css', rel: 'stylesheet'}
+    / FontAwesome Styles
+    %link{href: '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', rel: 'stylesheet'}
+    / Morris Chart and Custom Styles
+    = stylesheet_link_tag 'tienda/morris-0.4.3.min', 'tienda/custom-styles'
+    / Google Fonts
+    %link{href: 'http://fonts.googleapis.com/css?family=Open+Sans', rel: 'stylesheet', type: 'text/css'}/
     = javascript_include_tag 'tienda/application'
-  %body
-    #content
-      = yield
+    = csrf_meta_tags
+    :javascript
+      window.Tienda = {}
+      window.Tienda.currencyUnit = "#{h Tienda.settings.currency_unit}";
+  %body{class: body_class}
+
+    .container-fluid
+      .row
+        .col-md-4.col-md-offset-4
+          .jumbotron
+            %h1 Tienda
+
+      .row
+        .col-md-4.col-md-offset-4
+          .well
+            = yield
+
+      %footer
+        .row
+          .col-md-4.col-md-offset-4
+            %em Powered by
+            %br
+            Tienda Gem by:
+            %a{:href => "http://gonzalo.robaina.me"} Gonzalo Robaina
+            %br
+            Template by:
+            %a{:href => "http://webthemez.com"} WebThemez
+
+  %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"}
+  = javascript_include_tag 'tienda/jquery.metisMenu', 'tienda/raphael-2.1.0.min', 'tienda/morris'
