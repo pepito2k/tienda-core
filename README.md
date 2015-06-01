@@ -19,6 +19,10 @@ introduce a catalogue-based store into your Rails 4 applications.
 * Flexible & customisable order flow
 * Delivery/shipping control, management & weight-based calculation
 
+## Screenshot
+![GemVersion](screenshot.png)
+
+
 ## Getting Started
 
 Tienda provides the core framework for the store and you're responsible for
