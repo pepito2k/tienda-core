@@ -33,7 +33,7 @@ module Tienda
       end
     end
 
-    factory :saturday_delivery, :parent => :delivery_service do
+    factory :saturday_delivery, parent: :delivery_service do
       name            'Saturday Delivery'
       code            'SD'
       default         false

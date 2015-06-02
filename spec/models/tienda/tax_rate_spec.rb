@@ -29,7 +29,7 @@ module Tienda
       it 'description works as expected' do
         expect(tax_rate.description).to eq('Standard Tax (20.0%)')
       end
-      pending 'rate_for order works as expected' do
+      xit 'rate_for order works as expected' do
         expect(tax_rate.rate_for).to eq(20.0)
       end
     end
