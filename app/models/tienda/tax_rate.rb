@@ -1,23 +1,21 @@
 module Tienda
   class TaxRate < ActiveRecord::Base
 
-    self.table_name = 'tienda_tax_rates'
-
     include Tienda::AssociatedCountries
 
     # The order address types which may be used when choosing how to apply the tax rate
     ADDRESS_TYPES = ['billing', 'delivery']
 
     # Validations
-    validates :name, :presence => true
-    validates :address_type, :inclusion => {:in => ADDRESS_TYPES}
-    validates :rate, :numericality => true
+    validates :name, presence: true
+    validates :address_type, inclusion: {in: ADDRESS_TYPES}
+    validates :rate, numericality: true
 
     # All products which are assigned to this tax rate
-    has_many :products, :dependent => :restrict_with_exception, :class_name => 'Tienda::Product'
+    has_many :products, dependent: :restrict_with_exception, class_name: 'Tienda::Product'
 
     # All delivery service prices which are assigned to this tax rate
-    has_many :delivery_service_prices, :dependent => :restrict_with_exception, :class_name => 'Tienda::DeliveryServicePrice'
+    has_many :delivery_service_prices, dependent: :restrict_with_exception, class_name: 'Tienda::DeliveryServicePrice'
 
     # All tax rates ordered by their ID
     scope :ordered, -> { order(:id)}
