@@ -10,6 +10,7 @@ This document outlines key changes which are introduced in each version. The ful
 * Remove nifty dialogs (now using bootstrap modals)
 * Use rspec for tests
 * Code style fixes to make it more readable
+* Add document attribute to order
 
 ## v1.1.2
 

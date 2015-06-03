@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517212100) do
+ActiveRecord::Schema.define(version: 20150603235417) do
 
   create_table "nifty_attachments", force: :cascade do |t|
     t.integer  "parent_id",   limit: 4
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150517212100) do
     t.string   "invoice_number",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "document",                  limit: 4
   end
 
   add_index "tienda_orders", ["billing_country_id"], name: "index_tienda_orders_on_billing_country_id", using: :btree
