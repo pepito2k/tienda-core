@@ -1,20 +1,18 @@
 module Tienda
   class DeliveryService < ActiveRecord::Base
 
-    self.table_name = 'tienda_delivery_services'
-
     # Validations
-    validates :name, :presence => true
-    validates :courier, :presence => true
+    validates :name, presence: true
+    validates :courier, presence: true
 
     # Orders which are assigned to this delivery service
-    has_many :orders, :dependent => :restrict_with_exception, :class_name => 'Tienda::Order'
+    has_many :orders, dependent: :restrict_with_exception
 
     # Prices for the different levels of service within this delivery service
-    has_many :delivery_service_prices, :dependent => :destroy, :class_name => 'Tienda::DeliveryServicePrice'
+    has_many :delivery_service_prices, dependent: :destroy
 
     # All active delivery services
-    scope :active, -> { where(:active => true)}
+    scope :active, -> { where(active: true)}
 
     # Returns a tracking URL for the passed order
     #

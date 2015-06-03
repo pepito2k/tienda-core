@@ -1,14 +1,15 @@
 module Tienda
   FactoryGirl.define do
 
-    factory :standard_tax, class: TaxRate do
+    factory :tax_rate, class: TaxRate do
       name          'Standard Tax'
       rate          20.0
-    end
+      address_type  ['billing', 'delivery'].sample
 
-    factory :exempt_tax, class: TaxRate do
-      name          'Exempt Tax'
-      rate          0.0
+      factory :exempt_tax do
+        name          'Exempt Tax'
+        rate          0.0
+      end
     end
 
   end
