@@ -11,7 +11,6 @@ require 'nifty/attachments'
 
 module Tienda
   class << self
-
     # The path to the root of the Tienda application
     #
     # @return [String]
