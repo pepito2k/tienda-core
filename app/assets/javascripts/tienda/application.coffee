@@ -12,7 +12,7 @@ $ ->
   $('.tienda_products_index, .tienda_variants_index').on('ajax:success', '#new_stock_level_adjustment', (e, data, status, xhr) ->
     quantity = parseInt($(this).find('#stock_level_adjustment_adjustment').val())
     product = $(this).find('#item_id').val()
-    stock_label = $('a.btn-sm[href*=' + product + ']').closest('td').find('b');
+    stock_label = $('a.btn-sm[href*=' + product + ']').closest('td').find('b')
     old_quantity = parseInt(stock_label.text())
     $('#stockModal').modal('hide')
     if isNaN(old_quantity)
@@ -80,21 +80,6 @@ $ ->
 #     window.open($(this).attr('href'), 'despatchnote', 'width=700,height=800')
 #     false
 #
-#   # Close dialog
-#   $('body').on 'click', 'a[rel=closeDialog]', Nifty.Dialog.closeTopDialog
-#
-#   # Open AJAX dialogs
-#   $('a[rel=dialog]').on 'click', ->
-#     element = $(this)
-#     options = {}
-#     options.width = element.data('dialog-width') if element.data('dialog-width')
-#     options.offset = element.data('dialog-offset') if element.data('dialog-offset')
-#     options.behavior = element.data('dialog-behavior') if element.data('dialog-behavior')
-#     options.id = 'ajax'
-#     options.url = element.attr('href')
-#     Nifty.Dialog.open(options)
-#     false
-#
 #   # Format money values to 2 decimal places
 #   $('div.moneyInput input').each formatMoneyField
 #   $('body').on('blur', 'div.moneyInput input', formatMoneyField)
@@ -106,44 +91,3 @@ $ ->
 #   value = $(this).val().replace /,/, ""
 #   $(this).val(parseFloat(value).toFixed(2)) if value.length
 #
-# #
-# # Stock Level Adjustment dialog beavior
-# #
-# Nifty.Dialog.addBehavior
-#   name: 'stockLevelAdjustments'
-#   onLoad: (dialog,options)->
-#     $('input[type=text]:first', dialog).focus()
-#     $(dialog).on 'submit', 'form', ->
-#       form = $(this)
-#       $.ajax
-#         url: form.attr('action')
-#         method: 'POST'
-#         data: form.serialize()
-#         dataType: 'text'
-#         success: (data)->
-#           $('div.table', dialog).replaceWith(data)
-#           $('input[type=text]:first', dialog).focus()
-#         error: (xhr)->
-#           if xhr.status == 422
-#             alert xhr.responseText
-#           else
-#             alert 'An error occurred while saving the stock level.'
-#       false
-#     $(dialog).on 'click', 'nav.pagination a', ->
-#       $.ajax
-#         url: $(this).attr('href')
-#         success: (data)->
-#           $('div.table', dialog).replaceWith(data)
-#       false
-#
-# #
-# # Always fire keyboard shortcuts when focused on fields
-# #
-# Mousetrap.stopCallback = -> false
-#
-# #
-# # Close dialogs on escape
-# #
-# Mousetrap.bind 'escape', ->
-#   Nifty.Dialog.closeTopDialog()
-#   false
