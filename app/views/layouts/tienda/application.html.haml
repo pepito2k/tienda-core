@@ -7,14 +7,12 @@
     %title #{@page_title} - Tienda
     %meta{content: "http://gonzalo.robaina.me", name: "author"}/
     =# stylesheet_link_tag 'tienda/application'
-    / Bootstrap Styles
     %link{href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css', rel: 'stylesheet'}
-    / FontAwesome Styles
     %link{href: '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', rel: 'stylesheet'}
-    / Morris Chart and Custom Styles
-    = stylesheet_link_tag 'tienda/morris-0.4.3.min', 'tienda/custom-styles'
-    / Google Fonts
-    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans", :rel => "stylesheet", :type => "text/css"}/
+    = stylesheet_link_tag 'tienda/custom-styles'
+
+    %link{href: '//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css', rel: 'stylesheet'}
+    %link{href: 'http://fonts.googleapis.com/css?family=Open+Sans', rel: 'stylesheet', type: 'text/css'}/
     = javascript_include_tag 'tienda/application'
     = csrf_meta_tags
     :javascript
@@ -38,4 +36,6 @@
               %a{:href => "http://webthemez.com"} WebThemez
 
   %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"}
-  = javascript_include_tag 'tienda/jquery.metisMenu', 'tienda/raphael-2.1.0.min', 'tienda/morris'
+  %script{src: "//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"}
+  %script{src: "//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"}
+  = javascript_include_tag 'tienda/jquery.metisMenu'
