@@ -21,18 +21,18 @@ module Tienda
     # The product's category
     #
     # @return [Tienda::ProductCategory]
-    belongs_to :product_category, class_name: 'Tienda::ProductCategory'
+    belongs_to :product_category
 
     # The product's tax rate
     #
     # @return [Tienda::TaxRate]
-    belongs_to :tax_rate, class_name: "Tienda::TaxRate"
+    belongs_to :tax_rate
 
     # Ordered items which are associated with this product
-    has_many :order_items, dependent: :restrict_with_exception, class_name: 'Tienda::OrderItem', as: :ordered_item
+    has_many :order_items, dependent: :restrict_with_exception, as: :ordered_item
 
     # Orders which have ordered this product
-    has_many :orders, through: :order_items, class_name: 'Tienda::Order'
+    has_many :orders, through: :order_items
 
     # Stock level adjustments for this product
     has_many :stock_level_adjustments, dependent: :destroy
@@ -106,6 +106,20 @@ module Tienda
     # @return [Array]
     def images
       nifty_attachments.select { |attachment| attachment.role != "data_sheet" }
+    end
+
+    # Return all product categories
+    #
+    # @return [Array]
+    def categories
+      parent_category_id = product_category.id
+      cats = []
+      while parent_category_id != nil
+        c = Tienda::ProductCategory.find(parent_category_id)
+        cats << c
+        parent_category_id = c.parent_id
+      end
+      cats
     end
 
     # Search for products which include the given attributes and return an active record

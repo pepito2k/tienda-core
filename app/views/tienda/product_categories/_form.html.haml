@@ -5,11 +5,15 @@
       = t('tienda.product_category.category_details')
     .panel-body
       .row
-        .col-md-6
+        .col-md-4
+          .form-group
+            = f.label :name, t('tienda.product_category.parent')
+            = f.select :parent_id, product_categories_options_for_select(@product_category.parent_id, @product_category.id), {prompt: true}, {class: 'form-control'}
+        .col-md-4
           .form-group
             = f.label :name, t('tienda.product_category.name')
             = f.text_field :name, class: 'focus form-control'
-        .col-md-6
+        .col-md-4
           .form-group
             = f.label :permalink, t('tienda.product_category.permalink')
             = f.text_field :permalink, class: 'form-control'

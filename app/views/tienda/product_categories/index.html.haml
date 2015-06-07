@@ -24,6 +24,7 @@
           %tr.empty
             %td= t('tienda.product_category.no_categories')
         - else
-          - for cat in @product_categories
+          - @product_categories.each do |cat|
             %tr
               %td= link_to cat.name, [:edit, cat]
+            = product_category_rows(cat)

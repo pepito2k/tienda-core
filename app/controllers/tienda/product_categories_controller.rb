@@ -5,10 +5,11 @@ module Tienda
     before_filter { params[:id] && @product_category = Tienda::ProductCategory.find(params[:id]) }
 
     def index
-      @product_categories = Tienda::ProductCategory.ordered.all
+      @product_categories = Tienda::ProductCategory.root.ordered.includes(:children)
     end
 
     def new
+      @parents = Tienda::ProductCategory.all
       @product_category = Tienda::ProductCategory.new
     end
 
@@ -22,6 +23,7 @@ module Tienda
     end
 
     def edit
+      @parents = Tienda::ProductCategory.all
     end
 
     def update
@@ -40,7 +42,7 @@ module Tienda
     private
 
     def safe_params
-      params[:product_category].permit(:name, :permalink, :description, :image_file)
+      params[:product_category].permit(:name, :permalink, :description, :image_file, :parent_id)
     end
 
   end
