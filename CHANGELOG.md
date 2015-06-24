@@ -2,6 +2,10 @@
 
 This document outlines key changes which are introduced in each version. The full commit history can be found [on GitHub](http://github.com/pepito2k/tienda-core).
 
+## v2.0.2
+
+* Fixed order statistics bug in Dashboard
+
 ## v2.0.1
 
 * Removed redundant dependencies
