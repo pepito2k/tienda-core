@@ -37,10 +37,9 @@ follow the instructions below and you'll be up and running in minutes.
 
     rails new my_store
     cd my_store
-    echo "gem 'tienda', '~> 1.0'" >> Gemfile
+    echo "gem 'tienda', '~> 2.1'" >> Gemfile
     bundle
     rails generate tienda:setup
-    rails generate nifty:attachments:migration
     rails generate nifty:key_value_store:migration
     rake db:migrate tienda:setup
     rails server

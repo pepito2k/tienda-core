@@ -4,10 +4,12 @@ require 'dynamic_form'
 require 'kaminari'
 require 'ransack'
 require 'counter_culture'
+require 'carrierwave'
+require 'carrierwave-aws'
+require 'mini_magick'
 
 require 'nifty/utils'
 require 'nifty/key_value_store'
-require 'nifty/attachments'
 
 module Tienda
   class << self

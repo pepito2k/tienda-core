@@ -39,6 +39,24 @@ $ ->
   $('a[rel=searchOrders]').on 'click', ->
     $('div.search-orders').toggleClass('hide')
 
+  # Add a new image to a table
+  $('a[data-behavior=addImageToImagesTable]').on 'click', ->
+    table = $('table.productImages')
+    nextid = table.find('tbody tr:not(.template)').length
+    template = $('tr.template', table).html().replace('[]', "[#{nextid}]")
+    table.append("<tr>#{template}</tr>")
+    false
+
+  # Remove an image from a table
+  $('table.productImages tbody').on 'click', 'tr td.remove a', ->
+    row = $(this).closest('tr')
+    if row.find('.destroy').length
+      row.find('.destroy').val('true')
+      row.fadeOut()
+    else
+      row.remove()
+    false
+
   # Add a new attribute to a table
   $('a[data-behavior=addAttributeToAttributesTable]').on 'click', ->
     table = $('table.productAttributes')

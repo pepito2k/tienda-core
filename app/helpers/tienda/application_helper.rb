@@ -18,15 +18,16 @@ module Tienda
     def attachment_preview(attachment, options = {})
       if attachment
         String.new.tap do |s|
-          if attachment.image?
-            style = "style='background-image:url(#{attachment.path})'"
+          if attachment.mounted_as == :image
+            style = "style='background-image:url(#{attachment.url})'"
           else
             style = ''
           end
-          s << "<div class='attachmentPreview #{attachment.image? ? 'image' : 'doc'}'>"
+          s << "<div class='attachmentPreview #{attachment.mounted_as == :image ? 'image' : 'doc'}'>"
           s << "<div class='imgContainer'><div class='img' #{style}></div></div>"
           s << "<div class='desc'>"
-          s << "<span class='filename'><a href='#{attachment_path(attachment)}'>#{attachment.file_name}</a></span>"
+          s << "<span class='filename'>#{link_to File.basename(attachment.path), attachment.url}</span>"
+          # s << "<span class='filename'><a href='#{attachment_path(attachment)}'>#{attachment.file_name}</a></span>"
           s << "<span class='delete'>"
           s << link_to(t('helpers.attachment_preview.delete', :default => 'Delete this file?'), attachment_path(attachment), :method => :delete, :data => {:confirm => t('helpers.attachment_preview.delete_confirm', :default => "Are you sure you wish to remove this attachment?")})
           s << "</span>"

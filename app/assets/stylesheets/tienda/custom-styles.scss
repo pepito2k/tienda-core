@@ -409,9 +409,18 @@ line-height: 1.428571429;
    PRODUCT STYLES
 ------------------------------------------------*/
 
+.productImages.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.productImages td.handle,
 .productAttributes td.handle {
   background: image-url('tienda/move.svg') no-repeat center;
   background-size: 16px
+}
+
+.productImages .img_preview {
+  max-height: 60px;
 }
 
 /*----------------------------------------------

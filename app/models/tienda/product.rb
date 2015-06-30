@@ -7,16 +7,9 @@ module Tienda
     require_dependency 'tienda/product/product_attributes'
     require_dependency 'tienda/product/variants'
 
-    # Products have 5 images and a data_sheet
-    attachment :default_image
-    attachment :second_image
-    attachment :third_image
-    attachment :fourth_image
-    attachment :fifth_image
-    attachment :data_sheet
-
     # To preserve backwards compatibility
     alias_attribute :stock, :stock_count
+    alias_attribute :images, :product_images
 
     # The product's category
     #
@@ -36,6 +29,10 @@ module Tienda
 
     # Stock level adjustments for this product
     has_many :stock_level_adjustments, dependent: :destroy
+
+    # Product Images
+    has_many :product_images, dependent: :destroy
+    accepts_nested_attributes_for :product_images, reject_if: proc { |attributes| attributes['image'].blank? }, allow_destroy: true
 
     # Validations
     with_options if: Proc.new { |p| p.parent.nil? } do |product|
@@ -99,13 +96,6 @@ module Tienda
     # @return [Boolean]
     def in_stock?
       self.default_variant ? self.default_variant.in_stock? : (stock_control? ? stock_count > 0 : true)
-    end
-
-    # Return all product images
-    #
-    # @return [Array]
-    def images
-      nifty_attachments.select { |attachment| attachment.role != "data_sheet" }
     end
 
     # Return all product categories

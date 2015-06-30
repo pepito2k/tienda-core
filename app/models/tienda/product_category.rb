@@ -1,11 +1,12 @@
 module Tienda
   class ProductCategory < ActiveRecord::Base
 
-    # Categories have an image attachment
-    attachment :image
+    # Mount Uploader
+    mount_uploader :image, CategoryImageUploader
 
     # All products within this category
     has_many :products, dependent: :restrict_with_exception
+    has_many :active_featured_root_products, -> { where(active: true, featured: true, parent_id: nil) }, class_name: 'Tienda::Product'
     # Sub Categories relationships
     has_many :children, class_name: 'Tienda::ProductCategory', foreign_key: :parent_id
     belongs_to :parent, class_name: 'Tienda::ProductCategory'

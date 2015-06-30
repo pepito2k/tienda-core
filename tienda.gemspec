@@ -26,10 +26,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'uglifier', '>= 2.2', '< 3.0'
   s.add_dependency 'roo', '>= 1.13.0', '< 1.14'
   s.add_dependency 'counter_culture', '~> 0.1', '>= 0.1.23'
+  s.add_dependency 'carrierwave', '>= 0.10.0'
+  s.add_dependency 'carrierwave-aws', '>= 0.5.0'
+  s.add_dependency 'mini_magick', '>= 4.2.7'
 
   s.add_dependency 'nifty-key-value-store', '>= 1.0.1', '< 2.0.0'
   s.add_dependency 'nifty-utils', '~> 1.0'
-  s.add_dependency 'nifty-attachments', '>= 1.0.3', '< 2.0.0'
 
   s.add_development_dependency 'sqlite3', '~> 1.3'
   s.add_development_dependency 'mysql2', '~> 0.3'

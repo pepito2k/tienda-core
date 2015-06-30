@@ -73,45 +73,29 @@
     .panel-heading
       = t('tienda.products.attachments')
     .panel-body
-      .row
-        .col-md-6
-          .form-group
-            = f.label :default_image_file, t('tienda.products.default_image')
-            %p= f.file_field :default_image_file, class: 'form-control'
-          %div
-            = attachment_preview @product.default_image
-        .col-md-6
-          .form-group
-            = f.label :second_image_file, t('tienda.products.second_image')
-            %p= f.file_field :second_image_file, class: 'form-control'
-          %div
-            = attachment_preview @product.second_image
-      .row
-        .col-md-6
-          .form-group
-            = f.label :third_image_file, t('tienda.products.third_image')
-            %p= f.file_field :third_image_file, class: 'form-control'
-          %div
-            = attachment_preview @product.third_image
-        .col-md-6
-          .form-group
-            = f.label :fourth_image_file, t('tienda.products.fourth_image')
-            %p= f.file_field :fourth_image_file, class: 'form-control'
-          %div
-            = attachment_preview @product.fourth_image
-      .row
-        .col-md-6
-          .form-group
-            = f.label :fifth_image_file, t('tienda.products.fifth_image')
-            %p= f.file_field :fifth_image_file, class: 'form-control'
-          %div
-            = attachment_preview @product.fifth_image
-        .col-md-6
-          .form-group
-            = f.label :data_sheet_file, t('tienda.products.datasheet')
-            %p= f.file_field :data_sheet_file, class: 'form-control'
-          %div
-            = attachment_preview @product.data_sheet
+      %table.productImages.table.table-hover
+        %thead
+          %tr
+            %th= t('tienda.products.preview')
+            %th= t('tienda.products.file_name')
+            %th.remove= t('tienda.products.remove')
+            %th
+        %tbody
+          %tr.template{style: 'display:none;'}
+            %td= file_field_tag 'product[product_images_attributes][][image]', class: 'form-control'
+            %td= t('tienda.products.file_name')
+            %td.remove= link_to t('tienda.remove') , '#', class: 'btn btn-sm btn-danger'
+            %td
+          - @product.product_images.each_with_index do |image, i|
+            %tr
+              %td= image_tag image.image.url, class: :img_preview
+              %td= File.basename(image.image.path)
+              %td.remove
+                = link_to t("tienda.remove"), '#', class: 'btn btn-sm btn-danger'
+                = hidden_field_tag "product[product_images_attributes][#{i}][id]", image.id
+                = hidden_field_tag "product[product_images_attributes][#{i}][_destroy]", '', class: 'destroy'
+              %td
+      %p.addImage= link_to t('tienda.products.add_image') , '#', data: {behavior: 'addImageToImagesTable'}, class: 'btn btn-success btn-sm'
 
   .panel.panel-default
     .panel-heading

@@ -1,6 +1,5 @@
 Tienda::Engine.routes.draw do
 
-  get 'attachment/:id/:filename.:extension' => 'attachments#show'
   resources :product_categories
   resources :products do
     resources :variants

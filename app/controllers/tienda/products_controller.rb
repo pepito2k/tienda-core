@@ -6,9 +6,9 @@ module Tienda
 
     def index
       if params[:filter].blank?
-        @products = Tienda::Product.root.includes(:stock_level_adjustments, :default_image, :product_category, :variants).order(:name).group_by(&:product_category).sort_by { |cat, pro| cat.name }
+        @products = Tienda::Product.root.includes(:stock_level_adjustments, :product_images, :product_category, :variants).order(:name).group_by(&:product_category).sort_by { |cat, pro| cat.name }
       else
-        @products = Tienda::Product.root.send(params[:filter]).includes(:stock_level_adjustments, :default_image, :product_category, :variants).order(:name).group_by(&:product_category).sort_by { |cat, pro| cat.name }
+        @products = Tienda::Product.root.send(params[:filter]).includes(:stock_level_adjustments, :product_images, :product_category, :variants).order(:name).group_by(&:product_category).sort_by { |cat, pro| cat.name }
       end
     end
 
@@ -60,7 +60,8 @@ module Tienda
         :tax_rate_id, :stock_control, :default_image_file, :second_image_file,
         :third_image_file, :fourth_image_file, :fifth_image_file,
         :data_sheet_file, :active, :featured, :in_the_box,
-        :product_attributes_array => [:key, :value, :searchable, :public])
+        :product_attributes_array => [:key, :value, :searchable, :public],
+        :product_images_attributes => [:image, :_destroy, :id])
     end
 
   end
