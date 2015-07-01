@@ -5,7 +5,7 @@ CarrierWave.configure do |config|
     config.storage    = :aws
     config.aws_bucket = AWS_CONFIG['s3_bucket_name']
     config.aws_acl    = :'public-read'
-    config.asset_host = 'https://cdn.masinfinitocasa.com'
+    config.asset_host = AWS_CONFIG['s3_asset_url']
     config.aws_authenticated_url_expiration = 60 * 60 * 24 * 365
 
     config.aws_credentials = {
