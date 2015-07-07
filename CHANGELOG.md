@@ -2,6 +2,10 @@
 
 This document outlines key changes which are introduced in each version. The full commit history can be found [on GitHub](http://github.com/pepito2k/tienda-core).
 
+## v2.1.2
+
+* Fix categories
+
 ## v2.1.1
 
 * Fix tests

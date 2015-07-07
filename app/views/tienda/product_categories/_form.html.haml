@@ -29,10 +29,11 @@
     .panel-body
       .row
         .col-md-12
-          = f.label :image_file, t('tienda.product_category.image')
+          = f.label :image, t('tienda.product_category.image')
           %div
-            = attachment_preview @product_category.image
-            %p= f.file_field :image_file, class: 'form-control'
+            - unless @product_category.image.blank?
+              = image_tag @product_category.image.url
+            %p= f.file_field :image, class: 'form-control'
 
   .panel.panel-default
     .panel-body

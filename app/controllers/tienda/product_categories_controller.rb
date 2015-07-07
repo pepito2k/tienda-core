@@ -42,7 +42,7 @@ module Tienda
     private
 
     def safe_params
-      params[:product_category].permit(:name, :permalink, :description, :image_file, :parent_id)
+      params[:product_category].permit(:name, :permalink, :description, :image, :parent_id)
     end
 
   end
