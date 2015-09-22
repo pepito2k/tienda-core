@@ -598,6 +598,7 @@ en:
         tax_rates: Tax Rates
         users: Users
         countries: Countries
+        stats: Statistics
         settings: Settings
 
     settings:

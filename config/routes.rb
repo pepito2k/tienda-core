@@ -28,6 +28,7 @@ Tienda::Engine.routes.draw do
   resources :users
   resources :countries
   resources :attachments, only: :destroy
+  resources :stats
 
   get 'settings' => 'settings#edit'
   post 'settings' => 'settings#update'

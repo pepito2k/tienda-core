@@ -17,5 +17,6 @@ Tienda::NavigationManager.build(:admin_primary) do
   add_item :tax_rates, icon: 'fa fa-calculator'
   add_item :users, icon: 'fa fa-users'
   add_item :countries, icon: 'fa fa-flag'
+  add_item :stats, icon: 'fa fa-line-chart'
   add_item :settings, icon: 'fa fa-gear'
 end

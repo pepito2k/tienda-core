@@ -29,6 +29,9 @@ module Tienda
     # All ordered ordered by their ID desending
     scope :ordered, -> { order(:id => :desc)}
 
+    # All accepted Orders
+    scope :accepted, -> { where.not(accepted_at: nil) }
+
     # Is this order still being built by the user?
     #
     # @return [Boolean]

@@ -1,0 +1,75 @@
+- @page_title = 'Statistics'
+
+.row
+  .col-md-12
+    %h1.page-header
+      Statistics
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .panel.panel-default
+      .panel-heading
+        Orders last 30 days
+      .panel-body
+        %form.form-inline
+          .form-group
+            %label{:for => "exampleInputName2"} From
+            %input#exampleInputName2.form-control{:placeholder => "Jane Doe", :type => "text"}
+          .form-group
+            %label{:for => "exampleInputEmail2"} To
+            %input#exampleInputEmail2.form-control{:placeholder => "jane.doe@example.com", :type => "email"}
+          .form-group
+            %label{:for => "exampleInputEmail2"} Product
+            = collection_select :stats, :product, @products, :id, :name, {prompt: true}, {class: 'form-control'}
+          %button.btn.btn-default{:type => "submit"} Get Stats
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .panel.panel-default
+      .panel-heading
+        Responsive Table Example
+      .panel-body
+        .table-responsive
+          %table.table.table-striped.table-bordered.table-hover
+            %thead
+              %tr
+                %th S No.
+                %th First Name
+                %th Last Name
+                %th User Name
+                %th Email ID.
+            %tbody
+              %tr
+                %td 1
+                %td John
+                %td Doe
+                %td John15482
+                %td name@site.com
+              %tr
+                %td 2
+                %td Kimsila
+                %td Marriye
+                %td Kim1425
+                %td name@site.com
+              %tr
+                %td 3
+                %td Rossye
+                %td Nermal
+                %td Rossy1245
+                %td name@site.com
+              %tr
+                %td 4
+                %td Richard
+                %td Orieal
+                %td Rich5685
+                %td name@site.com
+              %tr
+                %td 5
+                %td Jacob
+                %td Hielsar
+                %td Jac4587
+                %td name@site.com
+              %tr
+                %td 6
+                %td Wrapel
+                %td Dere
+                %td Wrap4585
+                %td name@site.com
